@@ -1,4 +1,6 @@
 package training
+
+import scala.annotation.tailrec
 // Lazy val
 
 //class lazydemo
@@ -61,11 +63,22 @@ class fact
     }
 }
 
-
-object Da extends App
+//Constructor
+class demo(a:String="NA",b:String="NA")
 {
-  val t= new imptraits;//Object t for class imptraits.
-  val t1:hello=new imptraits;
+  def this(c:String)= this("na", c)
+  def this()= this("na")
+  println(a+" "+b);
+
+   class demo(value1:String,value2:String){
+    println(value1+" "+value2);
+  }
+   val obj1=new demo("iNNER","Class");
+}
+
+object Da extends App {
+  val t = new imptraits; //Object t for class imptraits.
+  val t1: hello = new imptraits;
 
   t1.display();
   t1.classmethod();
@@ -74,29 +87,74 @@ object Da extends App
 
   println();
   // Any
-  val a:Any=10;
+  val a: Any = 10;
   //val a1:AnyRef=20;/* AnyRef is used only for Classes, List and Option*/
-  val a2:AnyVal=30;
-  println(a+"  "+a2);
+  val a2: AnyVal = 30;
+  println(a + "  " + a2);
 
   // Prime or not
-  def isprime(n:Int):Boolean={
-    var c=0;
-    for(i<-1 to n)
-      if(n%i==0) c+=1 //println("n: "+n+" i : "+i+" c : "+c)
-    if(c!=2) false else true
+  def isprime(n: Int = 2003): Boolean = {
+    var c = 0;
+    var m=n/2;
+    for (i <- 1 to m)
+      if (n % i == 0) c += 1 //println("n: "+n+" i : "+i+" c : "+c)
+    if (c != 2) false else true
   }
 
   println();
 
-  if(isprime(29)) print("Prime");
-  else print("Not a Prime");
+  if (isprime()) println("Prime");
+  else println("Not a Prime");
+
 
   // Factorial of a number
-  val f=new fact;
+  val f = new fact;
   println();
   println(f.factorial(6));
 
+  println()
+  // Constructor Class
+  val obj1 = new demo;
+  //val obj2=new demo("hello","called")
+  println();
+
+  //Factorial of a number using tail recursion
+
+  def fact(n: Int): Int = {
+    @tailrec
+    def facthelp(n: Int, i: Int): Int = {
+      if (n == 1) i
+      else facthelp(n - 1, i * n)
+    }
+    facthelp(n, 1)
+  }
+
+  println("Factorial using Tail Recursion :" + fact(5));
+
+  println();
+
+  //basic loop function for Prime using recursive
+  var c=0;
+  def ispon(n:Int):Unit= {
+    def loopfun(n: Int, i: Int): Int = {
+      if (i == 0) {
+        c;
+      }
+      else {
+        if (n % i == 0) {
+          c = c + 1
+          //println(c)
+        }
+        loopfun(n, i - 1)
+      }
+    }
+    loopfun(n,n);
+    println(loopfun(27, 27))
+    if (c == 2) println("prime")
+    else println("Not Prime")
+  }
+
+  ispon(2003);
 }
 
 
