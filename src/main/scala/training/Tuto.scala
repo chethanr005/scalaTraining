@@ -79,7 +79,7 @@ class demo(a:String="NA",b:String="NA")
 object Da extends App {
   val t = new imptraits; //Object t for class imptraits.
   val t1: hello = new imptraits;
-
+  val s:String="Hello";
   t1.display();
   t1.classmethod();
   t.display();
@@ -117,9 +117,7 @@ object Da extends App {
   val obj1 = new demo;
   //val obj2=new demo("hello","called")
   println();
-
   //Factorial of a number using tail recursion
-
   def fact(n: Int): Int = {
     @tailrec
     def facthelp(n: Int, i: Int): Int = {
@@ -128,14 +126,12 @@ object Da extends App {
     }
     facthelp(n, 1)
   }
-
   println("Factorial using Tail Recursion :" + fact(5));
-
   println();
-
   //basic loop function for Prime using recursive
   var c=0;
   def ispon(n:Int):Unit= {
+    @tailrec
     def loopfun(n: Int, i: Int): Int = {
       if (i == 0) {
         c;
@@ -153,8 +149,9 @@ object Da extends App {
     if (c == 2) println("prime")
     else println("Not Prime")
   }
-
   ispon(2003);
+  val tk=(1,3,5,78,"08");
+  println(tk._3);
 }
 
 
