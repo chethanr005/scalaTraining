@@ -1,5 +1,8 @@
 package Java;
 
+import netscape.javascript.JSUtil;
+
+import java.util.Comparator;
 import java.util.function.*;
 
 public class practise {
@@ -22,21 +25,17 @@ public class practise {
 //    }
 
     public static void main(String[] args) {
-//        practise obj=new practise();
-//        System.out.println(obj.prime(27));
-
+          //practise obj=new practise();
+          //System.out.println(obj.prime(27));
         String s="hello";
         //Consumer
         Consumer<Integer> c = (a) -> System.out.println(-a);
         c.accept(30);
         BiConsumer<Integer, Integer> biC1 = (a, b) -> System.out.println("Sum : " + (a + b));
-
         //BiConsumer
         BiConsumer<Integer, Integer> biC2 = (a, b) -> System.out.println("Multiply : " + (a * b));
         biC1.accept(40,20);//BiConsumer
-
         biC1.andThen(biC2).accept(20, 10);//andThen BiConsumer
-
         //Predicate
         Predicate<Integer> p1=(a)-> a % 2 == 0;
         Predicate<Integer> p2=(a)-> a % 5 == 0;
@@ -45,7 +44,6 @@ public class practise {
         System.out.println("Predicate or "+p1.or(p2).test(6));//Predicate or
         System.out.println("Predicate or negate "+p1.or(p2).negate().test(6));
         System.out.println("Predicate and negate "+p1.and(p2).negate().test(6));//Predicate negate
-
         //BiPredicate
         BiPredicate<Integer,Integer> bip1=(a, b)-> a < b;
         BiPredicate<Integer,Integer> bip2=(a, b)-> a % b==0;
@@ -53,15 +51,34 @@ public class practise {
         System.out.println("Is BiPredicate and :"+bip1.and(bip2).test(10,50)); // BiPredicate and
         // BiPredicate or
         // BiPredicate negate()
-
         //Function
         Function<Integer,Boolean> isPositiveNo=(a)->a >= 0;
-        Function<String,String> at=(a)-> a.concat("AndThen ");
-        Function<String,String> comp=(a)->a.concat("Compose ");
+        Function<String,String> at=(a)-> a.concat(" AndThen");
+        Function<String,String> comp=(a)->a.concat(" Compose");
         System.out.println(isPositiveNo.apply(-1));
         //Function has andThen And compose
-        System.out.println(at.andThen(comp).apply("DA "));//andThen
-        System.out.println(at.compose(comp).apply("DA "));//Compose
+        System.out.println(at.andThen(comp).apply("DA"));//andThen
+        System.out.println(at.compose(comp).apply("DA"));//Compose
+        //Unary Operator
+        UnaryOperator<Integer> uo=(a)-> a=a+a;
+        System.out.println(uo.apply(10));
+        //Binary Operator
+        BinaryOperator<Integer> bio=(a,b)->a-b;
+        System.out.println(bio.apply(20,40));
+        //maxBy and minBy
+        Comparator<Integer> cmp= (a,b)->a.compareTo(b);//Comparator as max and minBy accepts only cmp.
+        BinaryOperator<Integer> max=BinaryOperator.maxBy(cmp);
+        BinaryOperator<Integer> min=BinaryOperator.minBy(cmp);
+        System.out.println(max.apply(20,10));
+        System.out.println(min.apply(20,10));
+        //Supplier
+        Supplier<String> sup=()->"Hello";
+        System.out.println(sup.get());
 
+        //Method Reference
+        Function <String,String> sm=(s1)->s1.concat(" Hello"); //Supports only Static values.
+        Function <String,String> smr=String::toLowerCase;
+        System.out.println(sm.apply("Hello"));
+        System.out.println(smr.apply("Hello"));
     }
 }
