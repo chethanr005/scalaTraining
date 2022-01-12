@@ -152,6 +152,39 @@ object Da extends App {
   ispon(2003);
   val tk=(1,3,5,78,"08");
   println(tk._3);
+
+//  val li:List[Int]=List(1,2,34,56,7);
+//  var index:Int=(-1);
+//  def disp(n:Int,li:List[Int])={
+//    var i=n;
+//    def outerloop(len:Int)= {
+//
+//      for (j <- 0 until len) {
+//        index=j;
+//        var ele=li[];
+//        innerloop(n,ele);
+//        def innerloop(i: Int, ele: Int): Unit = {
+//          if (i != 0) print(ele);
+//          else {
+//            print(ele);
+//            innerloop(i - 1, ele)
+//          }
+//        }
+//
+//      }
+//    }
+//  }
+
+
+  @tailrec
+  def simpleloop(i:Int):Int={
+    if(i<=1) i;
+    else {
+      println(i);
+      simpleloop(i-1);
+    }
+  }
+  print(simpleloop(20));
 }
 
 

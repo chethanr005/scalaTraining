@@ -4,29 +4,29 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.joining;
+
 public class practise {
-//    public boolean prime(int n)
-//    {
-//        int c=0;
-//        int m=n/2;
-//        for(int i=1;i<=m;i++)
-//        {
-//            if(n%i==0)
-//            {
-//                c=c+1;
-//            }
-//        }
-//        if(c==2)
-//            return false;
-//        else
-//            return true;
-//    }
+    //    public boolean prime(int n)
+    //    {
+    //        int c=0;
+    //        int m=n/2;
+    //        for(int i=1;i<=m;i++)
+    //        {
+    //            if(n%i==0)
+    //            {
+    //                c=c+1;
+    //            }
+    //        }
+    //        if(c==2)
+    //            return false;
+    //        else
+    //            return true;
+    //    }
     public static Boolean iseven(int a)
   {
-     if(a%2==0)
-        return true;
-     else
-         return false;
+    return a%2==0;
   }
 
   public void tables(int n)
@@ -142,7 +142,7 @@ public class practise {
         sorted().collect(Collectors.toList());// Sorting
 
         long res=check.stream()
-                        .reduce(0,(a,b)->a+b);// reducer to find sum of list.
+                        .reduce(0, Integer::sum);// reducer to find sum of list.
 
         int res1=check.stream()
                 .reduce(1,(a,b)->a*b);// reducer to find sum of list.
@@ -155,6 +155,38 @@ public class practise {
                         return b;
                 });
 
+        Optional<Integer> maxref=check.stream()
+                        .reduce((a,b)->a>b?a:b);
+
+        Optional<Integer> minref=check.stream()
+                .reduce((a,b)->a<b?a:b);
+
+        Optional<Integer> limsum=check.stream()
+                .limit(3)
+                .reduce((a,b)->a+b);
+              //.reduce(Integer::sum);
+        Optional<Integer> skipsum=check.stream()
+                .skip(3)
+                .reduce((a,b)->a+b);
+
+        boolean almatch=check.stream()
+                        .allMatch((i)->i%2==0);
+        boolean anmatch=check.stream()
+                .anyMatch((i)->i%2==0);
+        boolean nonmatch=check.stream()
+                .noneMatch((i)->i%13==0);
+
+        Optional<Integer> findany=check.stream()
+                .filter(i->i%5==0).findAny();
+        Optional<Integer> findfirst=check.stream()
+                .filter(i->i%5==0).findFirst();
+
+        List<String> nam=Arrays.asList("Xyz","Yzx","Zxy");
+        String join_1= nam.stream().collect(joining());
+        String join_2= nam.stream().collect(joining(" - "));
+        String join_3= nam.stream().collect(joining(" - ","pre","suf"));
+        Long cunt=nam.stream().collect(counting());
+
 
         System.out.println("Numbers : "+check);
         System.out.println("%5 : "+num);
@@ -163,8 +195,19 @@ public class practise {
         System.out.println("Count : "+count);
         System.out.println("Collection Count : "+ccount);
         System.out.println("Sorted : "+srt);
-        System.out.println("Sum of elements : "+res);
         System.out.println("Product of elements : "+res1);
         System.out.println("Maximum of elements : "+maxno);
+        System.out.println("Maximum of elements using optional : "+maxref.get());
+        System.out.println("Sum of elements : "+res);
+        System.out.println("Sum of 3 elements using optional and Limit : "+limsum.get());
+        System.out.println("Sum of  elements using optional and Skip : "+skipsum.get());
+        System.out.println("Is all the element divisible by 2 ? "+almatch);
+        System.out.println("Is any element divisible by 2 ? "+anmatch);
+        System.out.println("Find First Element "+findfirst.get());
+        System.out.println("Find Any Element "+findany.get());
+        System.out.println("Joining-1 "+join_1);
+        System.out.println("Joining-2 "+join_2);
+        System.out.println("Joining-3 "+join_3);
+        System.out.println("Counting "+cunt);
     }
 }
