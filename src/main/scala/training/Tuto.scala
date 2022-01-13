@@ -75,6 +75,16 @@ class demo(a:String="NA",b:String="NA")
   }
    val obj1=new demo("iNNER","Class");
 }
+class test
+{
+  def a23=5;
+  def pra={
+    val a23:Array[Int]=new Array[Int](test.this.a23);
+    println("Inside Test Class");
+    a23.foreach(println(_));
+  }
+  pra;
+}
 
 object Da extends App {
   val t = new imptraits; //Object t for class imptraits.
@@ -153,29 +163,6 @@ object Da extends App {
   val tk=(1,3,5,78,"08");
   println(tk._3);
 
-//  val li:List[Int]=List(1,2,34,56,7);
-//  var index:Int=(-1);
-//  def disp(n:Int,li:List[Int])={
-//    var i=n;
-//    def outerloop(len:Int)= {
-//
-//      for (j <- 0 until len) {
-//        index=j;
-//        var ele=li[];
-//        innerloop(n,ele);
-//        def innerloop(i: Int, ele: Int): Unit = {
-//          if (i != 0) print(ele);
-//          else {
-//            print(ele);
-//            innerloop(i - 1, ele)
-//          }
-//        }
-//
-//      }
-//    }
-//  }
-
-
   @tailrec
   def simpleloop(i:Int):Int={
     if(i<=1) i;
@@ -184,7 +171,17 @@ object Da extends App {
       simpleloop(i-1);
     }
   }
-  print(simpleloop(20));
+  println(simpleloop(20));
+
+  def a23=5;
+  def pra={
+   val a23:Array[Int]=new Array[Int](Da.a23);
+    a23.foreach(println(_));
+  }
+  //pra;
+
+  val runclass=new test;
+
 }
 
 

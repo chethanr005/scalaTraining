@@ -1,16 +1,13 @@
 package Java;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 public class child extends parent {
     @Override
     public void display() {
         System.out.println("Child");
         super.display();
     }
-
     public static void main(String[] args) {
         child c = new child();
         c.display();
