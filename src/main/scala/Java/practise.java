@@ -209,5 +209,11 @@ public class practise {
         System.out.println("Joining-2 "+join_2);
         System.out.println("Joining-3 "+join_3);
         System.out.println("Counting "+cunt);
+
+//        Vector<Integer> v=new Vector();
+//        v.add(1);
+//        v.add(23);
+//        System.out.println(v);
+
     }
 }

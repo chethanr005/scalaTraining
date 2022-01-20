@@ -180,7 +180,6 @@ object Da extends App {
   }
   //pra;
 
-  val runclass=new test;
 
 }
 
