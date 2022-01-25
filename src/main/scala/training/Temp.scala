@@ -1,5 +1,8 @@
 package training
 
+import scala.collection.mutable.ListBuffer
+import scala.runtime.Nothing$
+
 /**
   * Created by Kartik on Jan 06, 2022.
   */
@@ -53,10 +56,17 @@ class Temp {
 
   }
 
+  abstract class Element{
+
+     def contents: Array[String]
+  }
+
+
+
 
 }
 
-object Temp extends App {
+object Temp1 extends App {
 
 
     val obj1=new Temp
@@ -78,15 +88,182 @@ object Temp extends App {
 
  // val d= new Demo1
 
+  def lazyvalue(x:() => Int)={
 
-}
-
-
-class Demo1{
-  println("this is a parent class")
-
-  class Demo1{
-    println("this is a nested class")
   }
 
+
+val ar1=(Array(1,2,3))
+  println(ar1)
+  println(ar1.toString)
+
+  val t=new Temp
+  println(t.toString)
+
+
+  val ch=1
+  val c=ch.toString*3
+  println(c)
+
+  //val ele=new UniformElement('c', 1,1)
+
+  val con=Array("this is a string")
+   println(con.length)
+
+  val aa=Array("this", "is","a", "array")
+  val bb=Array("type", "of", "array", "is", "string")
+
+//  val ae1=new ArrayElement(aa)
+//  val ae2=new ArrayElement(bb)
+//  val r1=ae1.above(ae2)
+
+
+  def test=Array(1,2,3,4,5)
+
+  println(test.length)
+
+
+
+//  def many(n:Int, l:List[Int]):List[Int]={
+//    var ls=ListBuffer()
+//   // for(i <- l)
+//    //  ls.add(i)
+//
+//
+//
+//
+//
+//  }
+
+
+
+  var ls1=ListBuffer(1)
+  ls1(0)=12
+  println(ls1)
+
+
+  val l1=Array.fill(10)('$')
+    l1.foreach(println)
+
+  val l2=List.range(0,100,1)
+  println(l2)
+
+ val ary=new Array[Double](10)
+ ary.foreach(println)
+
+  val ary1=new A(Array("this", "is", "scala", "training", null, null))
+  val  ary2= new  A(Array("and", "the","training", "is" ,"lead", "by", "karthik"))
+
+    (ary1.cat(ary2)).foreach(println)
+
+
+  (for((i,j) <- ary zip ary) yield i+""+j).foreach(println)
+
+
+  println(ary2)
+
+  val bb1= new B
+  println(bb1 )
+  println(bb1.wide(10))
+
+  println('1'.toString*3)
+  (Array("|")++Array("+")).foreach(println)
+
+  println("jijiiijij")
+
+  val c1=new C(1,2)
+  val c2= new C(9,8)
+  c2 ccc c1
+
+  println('a'.toString*0)
+
+
+  val arai1= Array(" ","  ","   ","    ","     ")
+  val arai2=Array("1          10","2        9","3      8","4    7","5  6")
+
+  (for((i, j )<- arai1 zip arai2) yield i+" "+j).foreach(println)
+
+
+
+
+
 }
+
+//
+//abstract class Element {
+//  def contents: Array[String]
+//  def height = contents.length
+//  def width = if (height == 0) 0 else contents(0).length
+//  def above(that:Element):Element={
+//    new ArrayElement(this.contents ++ that.contents)
+//
+//  }
+//
+//  def beside(that: Element): Element = {
+//    val contents = new Array[String](this.contents.length)
+//    for (i <- 0 until this.contents.length)
+//      contents(i) = this.contents(i) + that.contents(i)
+//    new ArrayElement(contents)
+//  }
+//}
+//
+//class ArrayElement(conts: Array[String]) extends Element {
+//  def contents: Array[String] = conts
+//}
+//
+//class LineElement(s: String) extends ArrayElement(Array(s)) {
+//  override val contents = Array(s)
+//  override def width = s.length
+//   override def height = 100
+//}
+//
+//
+//
+//class UniformElement(ch:Char, override val width:Int, override val height:Int) extends Element{
+//  private  val line=ch.toString*width
+//  def contents=Array.fill(height)(line)
+//
+//}
+
+
+
+
+
+class A(val that:Array[String]) {
+
+  def sep=".o"
+
+  override def toString: String = that mkString sep
+
+  def cat(a:A):IndexedSeq[String]={
+
+  for(i <- 0 to this.that.length-1) yield{
+    this.that(i) + (a.that(i))
+  }
+  }
+}
+
+
+
+class B {
+
+  def wide(a:Int):B={
+    if(1==1) this
+    else this
+  }
+
+
+}
+
+class C(val x:Int, val y:Int){
+
+  def ccc(that:C)={
+    println(x)
+    println(that.x)
+  }
+
+
+}
+
+
+
