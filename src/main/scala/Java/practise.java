@@ -130,7 +130,7 @@ public class practise {
 
 
         List<Integer> multi=check.stream()
-                        .map(i->i*2).collect(Collectors.toList());// Map()
+                        .map(i->i+10).collect(Collectors.toList());// Map()
 
         List<Integer> unq=check.stream()
                 .distinct().collect(Collectors.toList());//Distinct()
@@ -182,6 +182,7 @@ public class practise {
                 .filter(i->i%5==0).findFirst();
 
         List<String> nam=Arrays.asList("Xyz","Yzx","Zxy");
+        nam.stream().map(s45->s45.toUpperCase()).forEach(System.out::println);
         String join_1= nam.stream().collect(joining());
         String join_2= nam.stream().collect(joining(" - "));
         String join_3= nam.stream().collect(joining(" - ","pre","suf"));
@@ -214,6 +215,20 @@ public class practise {
 //        v.add(1);
 //        v.add(23);
 //        System.out.println(v);
+
+
+        List<Integer> li2=new ArrayList<>();
+        li2.add(67);
+        li2.add(34);
+        li2.add(1);
+        Object[] ali=li2.toArray();
+        System.out.println(Arrays.toString(ali));
+        ListIterator<Integer> li=li2.listIterator();
+        for(int i=0;i< li2.size();i++)
+        {
+            System.out.println(li.next());
+        }
+        ArrayList al=new ArrayList();
 
     }
 }
