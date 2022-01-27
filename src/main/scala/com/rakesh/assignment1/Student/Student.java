@@ -1,4 +1,4 @@
-package Seminar;
+package com.rakesh.assignment1.Student;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +18,7 @@ public class Student {
         this.activities = activities;
     }
 
-    public Student() {
-
-    }
+    public Student() {}
 
     public Student(String s) {
         this.name=s;
@@ -46,7 +44,7 @@ public class Student {
         return gradeLevel;
     }
 
-    public void setGradeLevel(int gradeLevel) {
+    public void setGradeLevel() {
         this.gradeLevel = gradeLevel;
     }
 
@@ -54,7 +52,7 @@ public class Student {
         return gpa;
     }
 
-    public void setGpa(double gpa) {
+    public void setGpa() {
         this.gpa = gpa;
     }
 
@@ -73,14 +71,12 @@ public class Student {
 
     @Override
     public String toString() {
-        return "{" +
-                "name='" + name + '\'' +
+        return "( name='" + name + '\'' +
                 ", gradeLevel=" + gradeLevel +
                 ", gpa=" + gpa +
                 ", gender='" + gender + '\'' +
                 ", activities=" + activities +
-                '}';
+                " )\n";
     }
-
 
 }

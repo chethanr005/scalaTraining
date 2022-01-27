@@ -103,5 +103,7 @@ public class DateAndTime {
         System.out.println(p);
         Duration d=Duration.between(LocalTime.of(10,1),LocalTime.now());
         System.out.println(d);
+
+        System.out.println(LocalDate.now());
     }
 }
