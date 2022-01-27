@@ -1,4 +1,4 @@
-package training
+package scalaTraining
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -106,6 +106,7 @@ abstract  class Animal{
 class AA{
   println("A")
   def aa=println("AAAAAAAAA")
+  val a100=9.999
 }
 
 trait ZZ extends AA {

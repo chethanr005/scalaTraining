@@ -1,5 +1,0 @@
-package training
-
-  object Scope {
-
-  }

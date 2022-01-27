@@ -1,4 +1,4 @@
-package training
+package scalaTraining
 
 import Element.elem
 

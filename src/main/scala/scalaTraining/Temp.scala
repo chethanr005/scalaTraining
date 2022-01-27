@@ -1,4 +1,4 @@
-package training
+package scalaTraining
 
 import scala.collection.mutable.ListBuffer
 import scala.runtime.Nothing$
@@ -151,8 +151,8 @@ val ar1=(Array(1,2,3))
  val ary=new Array[Double](10)
  ary.foreach(println)
 
-  val ary1=new A(Array("this", "is", "scala", "training", null, null))
-  val  ary2= new  A(Array("and", "the","training", "is" ,"lead", "by", "karthik"))
+  val ary1=new A(Array("this", "is", "scala", "scalaTraining", null, null))
+  val  ary2= new  A(Array("and", "the", "scalaTraining", "is" ,"lead", "by", "karthik"))
 
     (ary1.cat(ary2)).foreach(println)
 
