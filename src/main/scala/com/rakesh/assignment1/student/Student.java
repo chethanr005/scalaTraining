@@ -1,4 +1,4 @@
-package com.rakesh.assignment1.Student;
+package com.rakesh.assignment1.student;
 
 import java.util.ArrayList;
 import java.util.List;
