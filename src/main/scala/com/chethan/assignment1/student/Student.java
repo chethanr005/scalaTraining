@@ -50,10 +50,8 @@ public class Student {
         this.activities=activities;
     }
 
-
-   static List<Student> students () {
-
-        return  Arrays.asList(new Student("rose", 7.5, "female", 10, Arrays.asList("swimming", "cycling")),
+    Student(){}
+   private static List<Student> students = Arrays.asList(new Student("rose", 7.5, "female", 10, Arrays.asList("swimming", "cycling")),
                 new Student("julie", 7.0, "female", 9, Arrays.asList("hiking", "running")),
                 new Student("tony", 3.6, "male", 8, Arrays.asList("travelling", "swimming", "walking")),
                 new Student("kail", 6.1, "female", 10, Arrays.asList("hiking", "walking")),
@@ -64,8 +62,9 @@ public class Student {
                 new Student("cooper", 8.7, "male", 10, Arrays.asList("travelling", "cycling", "hiking", "walking")),
                 new Student("hailey", 5.0, "female", 9, Arrays.asList("walking", "cycling")));
 
+
+    List<Student> studentData(){
+        return students;
     }
-
-
 
 }

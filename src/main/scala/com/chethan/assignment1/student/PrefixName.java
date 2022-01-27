@@ -3,18 +3,19 @@ package com.chethan.assignment1.student;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class StudentName {
+public class PrefixName {
 
-    List<String> getStudents(){
-        return Student.students().stream().map(i -> { if(i.getGender()=="male") return "Mr."+i.getName();
+    List<String> getPrefixNames(List<Student> l){
+        return l.stream().map(i -> { if(i.getGender()=="male") return "Mr."+i.getName();
                                                         else return "Ms."+i.getName();
                                                     }).collect(Collectors.toList());
     }
 
     public static void main(String[] args) {
 
-      StudentName s1=new StudentName();
-      s1.getStudents().forEach( System.out::println );
+        Student s= new Student();
+        PrefixName p=new PrefixName();
+        p.getPrefixNames(s.studentData()).forEach(System.out::println);
 
     }
 
