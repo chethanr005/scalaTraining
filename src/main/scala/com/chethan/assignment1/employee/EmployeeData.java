@@ -8,7 +8,7 @@ public class EmployeeData extends Employee {
 
     private List<Employee> l1=new ArrayList<Employee>();
 
-   private void addData(String name, String department, double salary, String gender, String joiningDate, String dob, String jobLevel) throws Exception {
+    private void addData(String name, String department, double salary, String gender, String joiningDate, String dob, String jobLevel) throws Exception {
 
         DateTimeFormatter d1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate adob = LocalDate.parse(dob, d1);
@@ -23,7 +23,7 @@ public class EmployeeData extends Employee {
         else throw new IllegalAccessException("    Candidate below 21 years cannot be taken as Employee");
     }
 
-   private List<Employee> getEmployeeData(){
+    private List<Employee> getEmployeeData(){
         return l1;
     }
 
