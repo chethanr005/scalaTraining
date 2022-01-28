@@ -4,7 +4,9 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * 1. Don't allow child labours while taking employee // 21 years
+ */
 public class EmployeeDatabase {
     public static List<Employee> employees = new ArrayList<>();
     public static List<Employee> getEmployee() {

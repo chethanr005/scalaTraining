@@ -1,12 +1,8 @@
 package com.kishor.assignment1.Employee;
-
-
 import java.time.LocalDate;
 import java.util.List;
-
 public class Result {
     public static void main(String[] args) {
-
         EmployeeDatabase.addEmployee("John","IT Development",35000.0,"male", LocalDate.of(2000,8,11),LocalDate.of(1998,5,12),"Junior");
         EmployeeDatabase.addEmployee("Sunil","IT Development",35000.0,"male", LocalDate.of(2020,8,11),LocalDate.of(2010,4,20),"Junior");
         EmployeeDatabase.addEmployee("Rohit","Business Analysis",45000.0,"male", LocalDate.of(2020,8,11),LocalDate.of(1995,8,17),"Mid-Term");

@@ -1,11 +1,11 @@
 package com.kishor.assignment1.Employee;
-
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Map;;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
-
+/**
+ * 3. group employees by department
+ */
 public class GroupByDepartment {
     public void depart(List<Employee> employees){
         Map<String, List<Employee>> grpByDept = employees.stream().collect(Collectors.groupingBy(Employee::getDepartment));

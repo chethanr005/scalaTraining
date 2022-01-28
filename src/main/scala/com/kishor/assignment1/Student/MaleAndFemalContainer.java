@@ -3,6 +3,10 @@ package com.kishor.assignment1.Student;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 1. get no of male and female students , Return result in class MaleAndFemaleContainer(int males, int females)
+ * 2. Add Prefix to each student's name ,  Mr. or Ms. and return
+ */
 public class MaleAndFemalContainer {
     public long maleCount(List<Student> male) {
         return male.stream()
