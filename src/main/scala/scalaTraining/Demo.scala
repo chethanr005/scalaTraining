@@ -1,10 +1,13 @@
-package training
+package scalaTraining
+
 import Element.elem
 
-class Temp
-{
+
+class Demo (val a:Int){
+
 
 }
+
 abstract class Element {
   def contents: Array[String]
   def width: Int = contents(0).length
@@ -19,15 +22,22 @@ abstract class Element {
     val that1 = that heighten this.height
     elem(
       for ((line1, line2) <- this1.contents zip that1.contents)
-        yield line1 + line2)
+        yield {
+          println("pinpinpinpin")
+          this1.contents foreach println
+          println("panpanpanpan")
+          that1.contents foreach println
+          line1 + line2
+        })
   }
+
   def widen(w: Int): Element =
     if (w <= width) this
     else {
-      val left = elem(' ', (w - width) / 2, height)
+      val left =elem(' ', (w - width) / 2, height)
       var right = elem(' ', w - width - left.width, height)
-      println("What is "+this)
-      left beside this beside right
+     // left beside this beside right
+      (left.beside(this)).beside(right)
     }
   def heighten(h: Int): Element =
     if (h <= height) this
@@ -38,23 +48,20 @@ abstract class Element {
     }
   override def toString = contents mkString "\n"
 }
+
 object Element {
-  private class ArrayElement(
-                              val contents: Array[String]
-                            ) extends Element
+  private class ArrayElement(val contents: Array[String]) extends Element
+
   private class LineElement(s: String) extends Element {
-    val contents: Array[String] = Array(s)
-    override def width: Int = s.length
+    val contents = Array(s)
+    override def width = s.length
     override def height = 1
   }
-  private class UniformElement(
-                                ch: Char,
-                                override val width: Int,
-                                override val height: Int
-                              ) extends Element {
+  private class UniformElement(ch: Char,override val width: Int,override val height: Int) extends Element {
     private val line = ch.toString * width
-    def contents: Array[String] = Array.fill(height)(line)
+    def contents = Array.fill(height)(line)
   }
+
   def elem(contents: Array[String]): Element =
     new ArrayElement(contents)
   def elem(chr: Char, width: Int, height: Int): Element =
@@ -62,40 +69,54 @@ object Element {
   def elem(line: String): Element =
     new LineElement(line)
 }
+
 object Spiral {
-  val space: Element = elem(" ")
-  val corner: Element = elem("+")
 
-  def spiral(nEdges: Int, direction: Int): Element = {
-    println("nEdges : "+ nEdges+" Direction :" + direction)
+  val space = elem(" ")
+  val corner = elem("+")
 
-    if (nEdges == 1)
+  def spiral(nEdges: Int, direction: Int): Element ={
+    if (nEdges == 1) {
+      println("final if")
+      println(nEdges+" " +direction)
       elem("+")
-    else {
-      val sp = {
-        var i=0;
-       var check=spiral(nEdges - 1, (direction + 3) % 4)
-        i=i+1;
-        println(i)
-       check
-      }
+    } else {
+      //println("before sp")
+      val sp:Element = spiral(nEdges - 1, (direction + 3) % 4)
+      println(sp)
+      println(nEdges+" "+direction)
+     //println("after sp")
       def verticalBar = elem('|', 1, sp.height)
-
+     println(sp.height)
+      println("after vertical")
       def horizontalBar = elem('-', sp.width, 1)
 
-      if (direction == 0)
+
+      if (direction == 0) {
+      println("if")
         (corner beside horizontalBar) above (sp beside space)
-      else if (direction == 1)
+      }
+      else if (direction == 1) {
+        println("else 1")
         (sp above space) beside (corner above verticalBar)
-      else if (direction == 2)
+      } else if (direction == 2) {
+      println("else 2")
         (space beside sp) above (horizontalBar beside corner)
-      else
+      } else {println("else")
         (verticalBar above corner) beside (space above sp)
+      }
     }
   }
 
-  def main(args: Array[String]): Unit = {
-    val nSides = 8
+  def main(args: Array[String]) {
+    val nSides = 6
     println(spiral(nSides, 0))
+
+
+    println(1/2)
+
   }
 }
+
+
+
