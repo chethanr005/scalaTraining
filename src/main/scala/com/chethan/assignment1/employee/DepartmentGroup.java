@@ -3,6 +3,8 @@ package com.chethan.assignment1.employee;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+//Group employees by department
 public class DepartmentGroup {
 
     Map<String, List<String>> employeesInDept(List<Employee> l) {

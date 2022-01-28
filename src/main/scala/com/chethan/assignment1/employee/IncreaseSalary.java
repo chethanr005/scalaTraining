@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 
+//Increase salary for given department
 public class IncreaseSalary {
 
     void salInc(List<Employee> l, String a, int exp, int hike){

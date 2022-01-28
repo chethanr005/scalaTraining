@@ -3,6 +3,7 @@ package com.chethan.assignment1.student;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//Student name with Prefixes
 public class PrefixName {
 
     List<String> getPrefixNames(List<Student> l){

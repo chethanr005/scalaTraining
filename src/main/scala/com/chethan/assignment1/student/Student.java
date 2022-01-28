@@ -2,6 +2,7 @@ package com.chethan.assignment1.student;
 
 import java.util.*;
 
+//Student Database
 public class Student {
     private String name;
     private double gpa;

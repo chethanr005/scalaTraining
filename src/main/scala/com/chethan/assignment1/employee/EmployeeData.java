@@ -4,6 +4,7 @@ import java.time.*;
 import java.time.format.*;
 import java.util.*;
 
+//Employee database and No child labour
 public class EmployeeData extends Employee {
 
     private List<Employee> l1=new ArrayList<Employee>();
@@ -52,7 +53,7 @@ public class EmployeeData extends Employee {
         System.out.println(dg1.employeesInDept(e1.getEmployeeData()));
 
         PromoteEmployees p1= new PromoteEmployees();
-        p1.SeniorEmp(e1.getEmployeeData());
+        p1.seniorEmp(e1.getEmployeeData());
 
         IncreaseSalary i1= new IncreaseSalary();
         i1.salInc(e1.getEmployeeData(), "ee", 4, 2000);

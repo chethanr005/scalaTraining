@@ -2,7 +2,7 @@ package com.chethan.assignment1.student;
 
 import java.util.List;
 
-
+//No of male and female students
 public class MaleAndFemaleContainer {
 
      long male(List<Student> l){
