@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+//4. get no of students participating in each type of activity , Return result in class ActivityContainer(String activity, int students)
+
 public class ActivityContainer {
-    public Map<String, Long> ActivityCount(List<Student> studentList)
+    public Map<String, Long> activityCount(List<Student> studentList)
     {
         Map<String,Long>gc= new HashMap<>();
-        List<String> al= StudentDataBase.getAllStudents().stream()
+        List<String> al= studentList.stream()
                 .map(s->s.getActivities())
                 .flatMap(s->s.stream())
                 .distinct().collect(Collectors.toList());
@@ -18,7 +20,7 @@ public class ActivityContainer {
         {
             int k=i;
             long c=0;
-            c=StudentDataBase.getAllStudents().stream()
+            c=studentList.stream()
                     .filter(s->s.getActivities().contains(al.get(k))).count();
             gc.put(al.get(k),c);
         }

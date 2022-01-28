@@ -5,9 +5,11 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+//1. Don't allow child labours while taking employee
+
 public class EmployeeDetails {
 
-    private int getage(LocalDate dob)
+    private int getAge(LocalDate dob)
     {
         Period p=Period.between(dob,LocalDate.now());
         return p.getYears();
@@ -19,15 +21,15 @@ public class EmployeeDetails {
     }
 
 
-    public void AddEmployee(String name, String department, double salary, String gender, String joiningDate, String dob, String jobLevel)
+    public void addEmployee(String name, String department, double salary, String gender, String joiningDate, String dob, String jobLevel)
     {
         DateTimeFormatter dtf= DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate lddob=LocalDate.parse(dob,dtf);
         LocalDate ldjd=LocalDate.parse(joiningDate,dtf);
-        int age=getage(lddob);
+        int age=getAge(lddob);
         if(age>=21)
         {
-           EmployeeDataBase.AddEmployee(name,department,salary,gender,ldjd,lddob,jobLevel);
+           EmployeeDataBase.addEmployee(name,department,salary,gender,ldjd,lddob,jobLevel);
             System.out.println("Employee Added.. ");
         }
         else

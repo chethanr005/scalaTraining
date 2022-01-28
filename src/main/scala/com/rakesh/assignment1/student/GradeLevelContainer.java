@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+//3. get no of students according to Grade level , Return result in class GradeLevelContainer(int gradeLevel, int students)
+
 public class GradeLevelContainer {
 
-    public Map<Integer, Long> GradeLevelCount(List<Student> studentList) {
+    public Map<Integer, Long> gradeLevelCount(List<Student> studentList) {
 
         Map<Integer, Long> gc = new HashMap<>();
 

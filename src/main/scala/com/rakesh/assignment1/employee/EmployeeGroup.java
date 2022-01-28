@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+//group employees by department
+
 public class EmployeeGroup {
 
     public Map<String, List<String>> empGroupList(List<Employee> empList)

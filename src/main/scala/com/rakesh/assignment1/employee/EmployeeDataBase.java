@@ -6,13 +6,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class EmployeeDataBase {
-    static List<Employee> employeedata=new ArrayList<>();
+    static List<Employee> employeeData=new ArrayList<>();
     public static List<Employee> getAllEmployees()
     {
-        return employeedata;
+        return employeeData;
     }
-    public static void AddEmployee(String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel)
+    public static void addEmployee(String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel)
     {
-        employeedata.add(new Employee(name,department,salary,gender,joiningDate,dob,jobLevel));
+        employeeData.add(new Employee(name,department,salary,gender,joiningDate,dob,jobLevel));
     }
 }

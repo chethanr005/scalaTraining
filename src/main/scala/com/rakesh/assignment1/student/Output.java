@@ -12,17 +12,17 @@ public class Output {
         PerformanceContainer pl=new PerformanceContainer();
 
 
-        System.out.println("Male count : "+result.MaleCount(ListOfStudents));
+        System.out.println("Male count : "+result.maleCount(ListOfStudents));
         System.out.println();
-        System.out.println("Female count : "+result.FemaleCount(ListOfStudents));
+        System.out.println("Female count : "+result.femaleCount(ListOfStudents));
         System.out.println();
-        System.out.println("List of Students name : "+result.StudentNames(ListOfStudents));
+        System.out.println("List of Students name : "+result.studentNames(ListOfStudents));
         System.out.println();
-        System.out.println("Students count based on Grade-level : "+glc.GradeLevelCount(ListOfStudents));
+        System.out.println("Students count based on Grade-level : "+glc.gradeLevelCount(ListOfStudents));
         System.out.println();
-        System.out.println("Activity Count List : "+ac.ActivityCount(ListOfStudents));
+        System.out.println("Activity Count List : "+ac.activityCount(ListOfStudents));
         System.out.println();
-        System.out.println("Performance List Count : "+pl.PerformanceList(ListOfStudents));
+        System.out.println("Performance List Count : "+pl.performanceList(ListOfStudents));
 
 
     }

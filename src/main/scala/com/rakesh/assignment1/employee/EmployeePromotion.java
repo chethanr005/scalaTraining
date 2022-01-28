@@ -7,25 +7,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+//5. promote employees having 8 years experience to Senior position
+
 public class EmployeePromotion {
-    public Map<String,String > PromoteEmployee(List<Employee> employeeList)
+    public Map<String,String > promoteEmployee(List<Employee> employeeList)
     {
         Map<String,String> result=new HashMap<>();
-       List<Employee> filteredemp=employeeList.stream().filter(s->getyears(s.getJoiningDate())>8).collect(Collectors.toList());
-        for (Employee employee : filteredemp) {
-            updatepost(employee);
+       List<Employee> filteredEmp=employeeList.stream().filter(s->getYear(s.getJoiningDate())>8).collect(Collectors.toList());
+        for (Employee employee : filteredEmp) {
+            updatePosition(employee);
             result.put(employee.getName(),employee.getJobLevel());
         }
         return result;
     }
 
-    private int getyears(LocalDate joingdate)
+    private int getYear(LocalDate joiningDate)
     {
-        Period p=Period.between(joingdate,LocalDate.now());
+        Period p=Period.between(joiningDate,LocalDate.now());
         return p.getYears();
     }
 
-    private void updatepost(Employee emp)
+    private void updatePosition(Employee emp)
     {
         emp.setJobLevel("Senior");
     }
