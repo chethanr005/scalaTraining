@@ -3,7 +3,7 @@ package com.kishor.assignment1.Student;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class maleAndFemalContainer {
+public class MaleAndFemalContainer {
     public long maleCount(List<Student> male) {
         return male.stream()
                 .map(Student::getGender)
