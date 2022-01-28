@@ -19,7 +19,7 @@ public class PerformanceContainer {
     }
     public  Map<String, Long> PerformanceList(List<Student> studentList)
     {
-        Map<String,Long> pl=new HashMap<String,Long>();
+        Map<String,Long> pl=new HashMap<>();
         pl.put("Average",AverageStudent(studentList));
         pl.put("Excellent",ExcellentStudent(studentList));
         pl.put("Poor",PoorStudent(studentList));
