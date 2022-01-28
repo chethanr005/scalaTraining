@@ -1,4 +1,4 @@
-package com.kishor.assignment1.Student;
+package com.kishor.assignment1.student;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,14 +14,12 @@ public class MaleAndFemalContainer {
                 .filter(student -> student.equals("male"))
                 .count();
     }
-
     public long femaleCount(List<Student> female) {
         return female.stream()
                 .map(Student::getGender)
                 .filter(student -> student.equals("female"))
                 .count();
     }
-
     public List<String> studentNames(List<Student> students) {
         return students.stream()
                 .map(s->prefix(s))

@@ -1,4 +1,4 @@
-package com.kishor.assignment1.Student;
+package com.kishor.assignment1.student;
 
 import java.util.List;
 import java.util.Map;

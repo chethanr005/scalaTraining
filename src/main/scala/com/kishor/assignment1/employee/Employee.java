@@ -1,15 +1,15 @@
-package com.kishor.assignment1.Employee;
+package com.kishor.assignment1.employee;
 
 import java.time.LocalDate;
 
 public class Employee {
-    private String name;
-    private String department;
-    private double salary;
-    private String gender;
+    private String    name;
+    private String    department;
+    private double    salary;
+    private String    gender;
     private LocalDate joiningDate;
     private LocalDate dob; // date of birth
-    private String jobLevel; // date of birth
+    private String    jobLevel; // date of birth
 
     public Employee(String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
         this.name = name;
@@ -20,21 +20,27 @@ public class Employee {
         this.dob = dob;
         this.jobLevel = jobLevel;
     }
+
     public String getGender() {
         return gender;
     }
+
     public void setGender(String gender) {
         this.gender = gender;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getDepartment() {
         return department;
     }
+
     public void setDepartment(String department) {
         this.department = department;
     }
@@ -70,6 +76,7 @@ public class Employee {
     public void setJobLevel(String jobLevel) {
         this.jobLevel = jobLevel;
     }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -78,8 +85,8 @@ public class Employee {
                 ", salary= " + salary +
                 ", gender='" + gender + '\'' +
                 ", joiningDate= " + joiningDate +
-                ",Dob= " +dob+
-                ",jobLevel= "+jobLevel+
+                ",Dob= " + dob +
+                ",jobLevel= " + jobLevel +
                 '}';
     }
 }

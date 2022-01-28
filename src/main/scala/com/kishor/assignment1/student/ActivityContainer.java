@@ -1,4 +1,4 @@
-package com.kishor.assignment1.Student;
+package com.kishor.assignment1.student;
 import java.util.*;
 import java.util.stream.Collectors;
 
