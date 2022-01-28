@@ -17,13 +17,6 @@ public class GradeLevelContainer {
         GradeLevelContainer g= new GradeLevelContainer();
         System.out.println( g.gradeLevelStudents(s.studentData())  );
 
-
-
-
-
     }
-
-
-
 
 }
