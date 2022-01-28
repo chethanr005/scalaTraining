@@ -1,0 +1,234 @@
+package Java;
+
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.joining;
+
+public class practise {
+    //    public boolean prime(int n)
+    //    {
+    //        int c=0;
+    //        int m=n/2;
+    //        for(int i=1;i<=m;i++)
+    //        {
+    //            if(n%i==0)
+    //            {
+    //                c=c+1;
+    //            }
+    //        }
+    //        if(c==2)
+    //            return false;
+    //        else
+    //            return true;
+    //    }
+    public static Boolean iseven(int a)
+  {
+    return a%2==0;
+  }
+
+  public void tables(int n)
+  {
+      for(int i=1;i<=10;i++)
+      {
+          System.out.println(n+" * "+i+" = "+n*i);
+      }
+  }
+    public static void main(String[] args) {
+          practise obj=new practise();
+          //System.out.println(obj.prime(27));
+        String s="hello";
+        //Consumer
+        Consumer<Integer> c = (a) -> System.out.println(-a);
+        c.accept(30);
+        BiConsumer<Integer, Integer> biC1 = (a, b) -> System.out.println("Sum : " + (a + b));
+        //BiConsumer
+        BiConsumer<Integer, Integer> biC2 = (a, b) -> System.out.println("Multiply : " + (a * b));
+        biC1.accept(40,20);//BiConsumer
+        biC1.andThen(biC2).accept(20, 10);//andThen BiConsumer
+        //Predicate
+        Predicate<Integer> p1=(a)-> a % 2 == 0;
+        Predicate<Integer> p2=(a)-> a % 5 == 0;
+        System.out.println("Predicate "+p1.test(6));//Predicate
+        System.out.println("Predicate and "+p1.and(p2).test(6));//Predicate and
+        System.out.println("Predicate or "+p1.or(p2).test(6));//Predicate or
+        System.out.println("Predicate or negate "+p1.or(p2).negate().test(6));
+        System.out.println("Predicate and negate "+p1.and(p2).negate().test(6));//Predicate negate
+        //BiPredicate
+        BiPredicate<Integer,Integer> bip1=(a, b)-> a < b;
+        BiPredicate<Integer,Integer> bip2=(a, b)-> a % b==0;
+        System.out.println("Is 20 less than 50 :"+bip1.test(20,50)); // BiPredicate
+        System.out.println("Is BiPredicate and :"+bip1.and(bip2).test(10,50)); // BiPredicate and
+        // BiPredicate or
+        // BiPredicate negate()
+        //Function
+        Function<Integer,Boolean> isPositiveNo=(a)->a >= 0;
+        Function<String,String> at=(a)-> a.concat(" AndThen");
+        Function<String,String> comp=(a)->a.concat(" Compose");
+        System.out.println(isPositiveNo.apply(-1));
+        //Function has andThen And compose
+        System.out.println(at.andThen(comp).apply("DA"));//andThen
+        System.out.println(at.compose(comp).apply("DA"));//Compose
+        //Unary Operator
+        UnaryOperator<Integer> uo=(a)-> a=a+a;
+        System.out.println(uo.apply(10));
+        //Binary Operator
+        BinaryOperator<Integer> bio=(a,b)->a-b;
+        System.out.println(bio.apply(20,40));
+        //maxBy and minBy
+        Comparator<Integer> cmp= (a,b)->a.compareTo(b);//Comparator as max and minBy accepts only cmp.
+        BinaryOperator<Integer> max=BinaryOperator.maxBy(cmp);
+        BinaryOperator<Integer> min=BinaryOperator.minBy(cmp);
+        System.out.println(max.apply(20,10));
+        System.out.println(min.apply(20,10));
+        //Supplier
+        Supplier<String> sup=()->"Hello";
+        System.out.println(sup.get());
+
+        //Method Reference
+        Function <String,String> sm=(s1)->s1.concat(" Hello"); //Function supports only for function with Single argument.
+        Function <String,String> smr=String::toLowerCase;
+        BiFunction<String,String,String> bismr=String::concat;
+        System.out.println(sm.apply("Hello"));
+        System.out.println(smr.apply("Hello"));
+        System.out.println(bismr.apply("Hello"," Concat"));//BiFUnction supports function with 2 arguments.
+
+        System.out.println(iseven(8));//Static Function implementation
+        Predicate<Integer> isev=practise::iseven;//creating our own class method reference.
+        System.out.println(isev.test(11));
+
+        // Consumer<Integer> tab=practise::tables;// Should make the tables function as static.
+        //tab.accept(7);
+        Consumer<Integer> tab1=obj::tables;//Method references by object , then no need to mention tables as static.
+        tab1.accept(8);
+
+        List<String> names=Arrays.asList("xyz","yzx","zxy");
+        System.out.println(names);
+        System.out.println(names.stream());
+        System.out.println(names.parallelStream());
+
+        //List
+        List<Integer> numlist=new ArrayList<>();
+        numlist.add(1);
+        numlist.add(2);
+        numlist.add(3);
+        numlist.add(4);
+        numlist.add(5);
+        System.out.println(numlist);
+        numlist.remove(2);
+        numlist.add(2,5);
+        System.out.println(numlist);
+        System.out.println(numlist.get(2));
+
+
+        //Stream Example
+        List<Integer> check= Arrays.asList(1, 45, 25, 23, 10,1,23,25,25);
+        List<Integer> num=check.stream().
+                filter(i->i%5==0).collect(Collectors.toList());// Filter()
+
+
+        List<Integer> multi=check.stream()
+                        .map(i->i+10).collect(Collectors.toList());// Map()
+
+        List<Integer> unq=check.stream()
+                .distinct().collect(Collectors.toList());//Distinct()
+
+        long count= check.stream().count();//stream Count();
+        long ccount=check.size();// collection size to find count.
+
+        List<Integer> srt=check.stream().
+        sorted().collect(Collectors.toList());// Sorting
+
+        long res=check.stream()
+                        .reduce(0, Integer::sum);// reducer to find sum of list.
+
+        int res1=check.stream()
+                .reduce(1,(a,b)->a*b);// reducer to find sum of list.
+
+        int maxno=check.stream()
+                .reduce(0,(a,b)->{
+                    if(a>b)
+                        return a;
+                    else
+                        return b;
+                });
+
+        Optional<Integer> maxref=check.stream()
+                        .reduce((a,b)->a>b?a:b);
+
+        Optional<Integer> minref=check.stream()
+                .reduce((a,b)->a<b?a:b);
+
+        Optional<Integer> limsum=check.stream()
+                .limit(3)
+                .reduce((a,b)->a+b);
+              //.reduce(Integer::sum);
+        Optional<Integer> skipsum=check.stream()
+                .skip(3)
+                .reduce((a,b)->a+b);
+
+        boolean almatch=check.stream()
+                        .allMatch((i)->i%2==0);
+        boolean anmatch=check.stream()
+                .anyMatch((i)->i%2==0);
+        boolean nonmatch=check.stream()
+                .noneMatch((i)->i%13==0);
+
+        Optional<Integer> findany=check.stream()
+                .filter(i->i%5==0).findAny();
+        Optional<Integer> findfirst=check.stream()
+                .filter(i->i%5==0).findFirst();
+
+        List<String> nam=Arrays.asList("Xyz","Yzx","Zxy");
+        nam.stream().map(s45->s45.toUpperCase()).forEach(System.out::println);
+        String join_1= nam.stream().collect(joining());
+        String join_2= nam.stream().collect(joining(" - "));
+        String join_3= nam.stream().collect(joining(" - ","pre","suf"));
+        Long cunt=nam.stream().collect(counting());
+
+
+        System.out.println("Numbers : "+check);
+        System.out.println("%5 : "+num);
+        System.out.println("*2 : "+multi);
+        System.out.println("Distinct : "+unq);
+        System.out.println("Count : "+count);
+        System.out.println("Collection Count : "+ccount);
+        System.out.println("Sorted : "+srt);
+        System.out.println("Product of elements : "+res1);
+        System.out.println("Maximum of elements : "+maxno);
+        System.out.println("Maximum of elements using optional : "+maxref.get());
+        System.out.println("Sum of elements : "+res);
+        System.out.println("Sum of 3 elements using optional and Limit : "+limsum.get());
+        System.out.println("Sum of  elements using optional and Skip : "+skipsum.get());
+        System.out.println("Is all the element divisible by 2 ? "+almatch);
+        System.out.println("Is any element divisible by 2 ? "+anmatch);
+        System.out.println("Find First Element "+findfirst.get());
+        System.out.println("Find Any Element "+findany.get());
+        System.out.println("Joining-1 "+join_1);
+        System.out.println("Joining-2 "+join_2);
+        System.out.println("Joining-3 "+join_3);
+        System.out.println("Counting "+cunt);
+
+//        Vector<Integer> v=new Vector();
+//        v.add(1);
+//        v.add(23);
+//        System.out.println(v);
+
+
+        List<Integer> li2=new ArrayList<>();
+        li2.add(67);
+        li2.add(34);
+        li2.add(1);
+        Object[] ali=li2.toArray();
+        System.out.println(Arrays.toString(ali));
+        ListIterator<Integer> li=li2.listIterator();
+        for(int i=0;i< li2.size();i++)
+        {
+            System.out.println(li.next());
+        }
+        ArrayList al=new ArrayList();
+
+    }
+}
