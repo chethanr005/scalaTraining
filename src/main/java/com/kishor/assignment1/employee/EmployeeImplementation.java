@@ -48,7 +48,7 @@ public class EmployeeImplementation {
         return new IncreaseSalaryContainer(salIncresedNames);
     }
 
-    public static void increment(EmployeeContainer employeeContainer) {
+    private static void increment(EmployeeContainer employeeContainer) {
         Double sal = employeeContainer.getSalary();
         employeeContainer.setSalary(sal + 5000L);
     }
