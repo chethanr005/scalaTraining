@@ -1,18 +1,23 @@
 package com.chethan.assignment1.employee;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
-
 //Group employees by department
 public class DepartmentGroup {
 
-    Map<String, List<String>> employeesInDept(List<Employee> l) {
+    private String dept;
+    private int    employees;
 
-        List<String> l1 = l.stream().map(i -> i.getDepartment()).distinct().collect(Collectors.toList());
-        Map<String, List<String>> m1 = new TreeMap<String, List<String>>();
-        l1.stream().forEach(i ->{m1.put(i ,l.stream().filter(k-> i==k.getDepartment()).map(j -> j.getName()).collect(Collectors.toList()));});
-        return m1;
+    DepartmentGroup(String dept, int employees) {
+        this.employees = employees;
+        this.dept = dept;
+    }
+
+    //Getters
+    public String getDept() {
+        return dept;
+    }
+
+    public int getEmployees() {
+        return employees;
     }
 
 }
