@@ -1,25 +1,22 @@
 package com.chethan.assignment1.student;
 
-import java.util.List;
-
-//No of male and female students
+//No of male and female student container
 public class MaleAndFemaleContainer {
 
-     long male(List<Student> l){
-       return l.stream().filter(i -> i.getGender()=="male").count();
-     }
+    private long males;
+    private long females;
 
-     long female(List<Student> l) {
-         return l.stream().filter(i -> i.getGender() == "female").count();
-     }
-
-    public static void main(String[] args) {
-
-        Student s= new Student();
-        MaleAndFemaleContainer m= new MaleAndFemaleContainer();
-        System.out.println(  "No of Female Students = "+  m.female(s.studentData()));
-        System.out.println(  "No of Male Students = "  +  m.male(s.studentData()));
-
+    MaleAndFemaleContainer(long males, long females) {
+        this.males = males;
+        this.females = females;
     }
 
+    //Getters
+    public long getMales() {
+        return males;
+    }
+
+    public long getFemales() {
+        return females;
+    }
 }
