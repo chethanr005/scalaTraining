@@ -2,7 +2,7 @@ package com.kishor.assignment1.employee;
 
 import java.time.LocalDate;
 
-public class Employee {
+public class EmployeeContainer {
     private String    name;
     private String    department;
     private double    salary;
@@ -11,7 +11,7 @@ public class Employee {
     private LocalDate dob; // date of birth
     private String    jobLevel; // date of birth
 
-    public Employee(String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
+    public EmployeeContainer(String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
         this.name = name;
         this.department = department;
         this.salary = salary;

@@ -8,28 +8,36 @@ import java.util.stream.Collectors;
  * 2. Add Prefix to each student's name ,  Mr. or Ms. and return
  */
 public class MaleAndFemalContainer {
-    public long maleCount(List<Student> male) {
-        return male.stream()
-                .map(Student::getGender)
-                .filter(student -> student.equals("male"))
-                .count();
+    private long males;
+    private long females;
+
+    MaleAndFemalContainer(long males, long females) {
+        this.males = males;
+        this.females = females;
     }
-    public long femaleCount(List<Student> female) {
-        return female.stream()
-                .map(Student::getGender)
-                .filter(student -> student.equals("female"))
-                .count();
+
+    public long getmales() {
+        return males;
     }
+
+    public long getFemales() {
+        return females;
+    }
+
+}
+
+class MaleFemaleCunt {
+
     public List<String> studentNames(List<Student> students) {
         return students.stream()
-                .map(s->prefix(s))
-                .collect(Collectors.toList());
+                       .map(s -> prefix(s))
+                       .collect(Collectors.toList());
     }
+
     private String prefix(Student student) {
         if (student.getGender() == "male") {
             return "Mr. " + student.getName();
-        }
-        else {
+        } else {
             return "Ms. " + student.getName();
         }
     }

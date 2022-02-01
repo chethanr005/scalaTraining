@@ -1,16 +1,14 @@
-package com.learnJava.data;
+package com.kishor.assignment1.student;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Student {
     private String name;
-    private int gradeLevel;
+    private int    gradeLevel;
     private double gpa;
     private String gender;
     List<String> activities = new ArrayList<>();
-
-
 
     public Student(String name, int gradeLevel, double gpa, String gender, List<String> activities) {
         this.name = name;
