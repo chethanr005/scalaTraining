@@ -1,6 +1,5 @@
 package com.training;
 
-import com.kishor.assignment1.Employee.PromoteEmployee;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -27,7 +26,6 @@ public class UnitTestSampleSpec {
 
         assertEquals(1, container.getStudents());
         assertTrue(result);
-        PromoteEmployee promoteEmployee = new PromoteEmployee();
     }
 
 
