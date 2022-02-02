@@ -6,4 +6,5 @@ lazy val root = (project in file("."))
   .settings(
     name := "scala-training"
   )
-libraryDependencies += "junit" % "junit" % "4.13.2" % Test
+
+libraryDependencies += "junit" % "junit" % "4.13" % Test
