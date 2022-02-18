@@ -44,22 +44,9 @@ public class Student {
         return gradeLevel;
     }
 
-    public void setGradeLevel() {
-        this.gradeLevel = gradeLevel;
-    }
-
     public double getGpa() {
         return gpa;
     }
-
-    public void setGpa() {
-        this.gpa = gpa;
-    }
-
-    public void printListOfActivities(){
-        System.out.println(this.activities);
-    }
-
 
     public List<String> getActivities() {
         return activities;
