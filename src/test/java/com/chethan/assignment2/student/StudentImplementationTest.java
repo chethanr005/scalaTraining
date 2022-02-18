@@ -1,7 +1,7 @@
 package com.chethan.assignment2.student;
 
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.*;
 

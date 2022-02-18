@@ -90,11 +90,4 @@ public class EmployeeImplementation {
         });
         return promotedEmployees;
     }
-
-
-    public static void main(String[] args) throws Exception {
-        System.out.println(getGroupByDept(getEmployeeData()));
-
-
-    }
 }

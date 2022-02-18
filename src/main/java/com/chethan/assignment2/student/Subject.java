@@ -1,6 +1,7 @@
 package com.chethan.assignment2.student;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -33,5 +34,6 @@ public class Subject {
     public static List<String> getSubjectList(List<Subject> subjectList) {
         return subjectList.stream().map(m -> m.getName()).collect(Collectors.toList());
     }
+
 
 }

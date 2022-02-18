@@ -1,5 +1,6 @@
 package com.chethan.assignment2.student;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -86,5 +87,9 @@ public class Student {
 
     public static int getMaxMarks(List<Integer> intList) {
         return intList.stream().max((a, b) -> a.compareTo(b)).get();
+    }
+
+    public static List<Boolean> dummy(Student student){
+        return Arrays.asList(true,false);
     }
 }

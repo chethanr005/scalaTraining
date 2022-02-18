@@ -8,3 +8,5 @@ lazy val root = (project in file("."))
   )
 
 libraryDependencies += "junit" % "junit" % "4.13" % Test
+
+libraryDependencies += "org.postgresql" % "postgresql" % "42.3.1"
