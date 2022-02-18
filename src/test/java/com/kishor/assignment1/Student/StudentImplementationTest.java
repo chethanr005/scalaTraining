@@ -1,35 +1,31 @@
 package com.kishor.assignment1.student;
 
+import com.kishor.assignment3.student.StudentDatabase;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Kishor on Jan 31, 2022.
  */
 
 public class StudentImplementationTest {
-    List<Student>      list          = StudentDataBase.getAllStudents();
-    List<String>       studentNames  = Arrays.asList("Mr. Alex", "Mr. Mahesh", "Mr. James", "Mr. Kenny", "Ms. Jane", "Ms. Emma", "Ms. Lisba");
-    Map<Integer, Long> allGrades     = StudentDataBase.getAllStudents().stream()
-                                                      .map(m -> m.getGradeLevel()).collect(Collectors.groupingBy(c -> c, Collectors.counting()));
-    Map<String, Long>  allPeformance = new HashMap<String, Long>() {{
-        put("Excellent", 2L);
-        put("poor", 2L);
-        put("Average", 3L);
+    List<Student> list = StudentDatabase.getAllStudents();
 
-    }};
+    public StudentImplementationTest() throws SQLException {
+    }
 
     /**
      * 1. get no of male and female students , Return result in class MaleAndFemalContainer(int males, int females)
      */
     @Test
     public void getMalesAndFemales() {
-        MaleAndFemalContainer maleAndFemalContainer = StudentImplementation.maleAndFemaleCount(list);
-        Assert.assertEquals(4, maleAndFemalContainer.getmales());
-        Assert.assertEquals(3, maleAndFemalContainer.getFemales());
+        MaleAndFemaleContainer maleAndFemaleContainer = StudentImplementation.maleAndFemaleCount(list);
+        Assert.assertEquals(4, maleAndFemaleContainer.getmales());
+        Assert.assertEquals(2, maleAndFemaleContainer.getFemales());
     }
 
     /**
@@ -37,26 +33,22 @@ public class StudentImplementationTest {
      */
     @Test
     public void getStudentNames() {
+        List<String> studentNames          = Arrays.asList("Mr. Alex", "Mr. Mahesh", "Mr. James", "Mr. Kenny", "Ms. Lisba", "Ms. Emma");
         List<String> maleAndFemalContainer = StudentImplementation.addPrefixToStudents(list);
         Assert.assertEquals(studentNames, maleAndFemalContainer);
     }
 
     /**
-     * 3. get no of students according to Grade level , Return result in class GradeLevelContainer(int gradeLevel, int students)
-     */
-    @Test
-    public void getGradeLevelForAValue() {
-        GradeLevelContainer noOfStudents = StudentImplementation.gradeLevelContainer(3, list);
-        Assert.assertEquals(2, noOfStudents.students);
-    }
-
-    /**
-     * 3.1 get total no of students according to Grade level , Return result in class GradeLevelContainer(int students)
+     * 3 get total no of students according to Grade level , Return result in class GradeLevelContainer(int gradeLevel, int students)
      */
     @Test
     public void getAllGradeLevel() {
-        GradeLevelContainer totalNoOfStudents = StudentImplementation.gradeLevelContainers(list);
-        Assert.assertEquals(allGrades, totalNoOfStudents.gradeLevel);
+        List<GradeLevelContainer> expectedValue = Arrays.asList(new GradeLevelContainer(2, 1l),
+                new GradeLevelContainer(3, 2l),
+                new GradeLevelContainer(4, 2l),
+                new GradeLevelContainer(5, 1l));
+        List<GradeLevelContainer> totalNoOfStudents = StudentImplementation.getAllGradeLevel(list);
+        Assert.assertEquals(expectedValue.toString(), totalNoOfStudents.toString());
     }
 
     /**
@@ -64,8 +56,18 @@ public class StudentImplementationTest {
      */
     @Test
     public void getAllPerformance() {
-        PerformanceContainer performanceContainer = StudentImplementation.performanceContainer(list);
-        Assert.assertEquals(allPeformance, performanceContainer.students);
+        List<ActivityContainer> expectedValue = Arrays.asList(new ActivityContainer("Painting", 2l),
+                new ActivityContainer("Swimming", 4l),
+                new ActivityContainer("Gymnastics", 2l),
+                new ActivityContainer("Soccer", 2l),
+                new ActivityContainer("Basketball", 1l),
+                new ActivityContainer("Baseball", 1l),
+                new ActivityContainer("Football", 2l),
+                new ActivityContainer("Running", 1l),
+                new ActivityContainer("Dancing", 1l),
+                new ActivityContainer("Aerobics", 1l));
+        List<ActivityContainer> activityContainers = StudentImplementation.activityContainers(list);
+        Assert.assertEquals(expectedValue.toString(), activityContainers.toString());
     }
 
     /**
@@ -76,8 +78,11 @@ public class StudentImplementationTest {
      */
     @Test
     public void getParticularPerformance() {
-        PerformanceContainer performanceContainer = StudentImplementation.performanceContainers(list, "poor");
-        Assert.assertEquals(Optional.of(2L).get(), performanceContainer.gradeLevel);
+        List<PerformanceContainer> expectedValue = Arrays.asList(new PerformanceContainer("poor", 1l),
+                new PerformanceContainer("average", 4l),
+                new PerformanceContainer("excellent", 1l));
+        List<PerformanceContainer> performanceContainer = StudentImplementation.getPerformanceOfStudents(list);
+        Assert.assertEquals(expectedValue.toString(), performanceContainer.toString());
     }
 
 

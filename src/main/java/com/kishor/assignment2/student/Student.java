@@ -55,6 +55,7 @@ public class Student {
         return students.getMarkDetails().stream().filter(f -> f.getId() == subId).map(m -> m.getMarks()).findAny().get();
     }
 
+
     public static Integer getSpecificSubjectMarks(Student student, Integer subId) {
         return student.getMarkDetails().stream().filter(f -> f.getId() == subId).map(m -> m.getMarks()).findAny().get();
     }

@@ -1,13 +1,11 @@
 package com.training;
 
-import org.junit.*;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.function.ThrowingRunnable;
 
 import java.time.LocalDate;
 import java.util.Optional;
-
-import static org.junit.Assert.fail;
 
 /**
  * Created by Kartik on Jan 28, 2022.

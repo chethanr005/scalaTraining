@@ -1,9 +1,7 @@
 package com.kishor.assignment1.student;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -11,10 +9,11 @@ import java.util.stream.Collectors;
  */
 
 public class StudentImplementation {
-    public static MaleAndFemalContainer maleAndFemaleCount(List<Student> students) {
+
+    public static MaleAndFemaleContainer maleAndFemaleCount(List<Student> students) {
         long maleCount   = students.stream().filter(f -> f.getGender().equals("male")).count();
         long femaleCount = students.stream().filter(f -> f.getGender().equals("female")).count();
-        return new MaleAndFemalContainer(maleCount, femaleCount);
+        return new MaleAndFemaleContainer(maleCount, femaleCount);
     }
 
     public static List<String> addPrefixToStudents(List<Student> students) {
@@ -24,35 +23,29 @@ public class StudentImplementation {
         return male;
     }
 
-    public static GradeLevelContainer gradeLevelContainer(long gradeLevel, List<Student> students) {
-        long noOfStudents = students.stream().filter(f -> f.getGradeLevel() == gradeLevel).count();
-        return new GradeLevelContainer(noOfStudents);
-    }
-
-    public static GradeLevelContainer gradeLevelContainers(List<Student> students) {
-        Map<Integer, Long> gradeCount = students.stream().map(s -> s.getGradeLevel()).collect(Collectors.groupingBy(c -> c, Collectors.counting()));
-        return new GradeLevelContainer(gradeCount);
+    public static List<GradeLevelContainer> getAllGradeLevel(List<Student> students) {
+        List<Integer> distinctGrade = students.stream().map(m -> m.getGradeLevel()).distinct().collect(Collectors.toList());
+        return distinctGrade.stream().
+                            map(m -> {
+                                Long count = students.stream().filter(f1 -> f1.getGradeLevel() == m).count();
+                                return new GradeLevelContainer(m, count);
+                            }).collect(Collectors.toList());
     }
 
     public static List<ActivityContainer> activityContainers(List<Student> students) {
-        Map<String, Long> activityCount = students.stream().map(student -> student.getActivities()).flatMap(List::stream).collect(Collectors.groupingBy(c -> c, Collectors.counting()));
-        return Arrays.asList(new ActivityContainer(activityCount.keySet(), activityCount.values()));
+        List<String> distinctActivities = students.stream().map(m -> m.getActivities().stream().collect(Collectors.toList())).flatMap(f -> f.stream()).distinct().collect(Collectors.toList());
+        return distinctActivities.stream().map(m1 -> {
+            Long count = students.stream().map(m2 -> m2.getActivities()).flatMap(f -> f.stream()).filter(f -> f.equals(m1)).count();
+            return new ActivityContainer(m1, count);
+        }).collect(Collectors.toList());
     }
 
-    public static PerformanceContainer performanceContainer(List<Student> students) {
-        Long              a              = students.stream().filter(f -> f.getGpa() >= 0.0 && f.getGpa() <= 4.0).count();
-        Long              b              = students.stream().filter(f -> f.getGpa() >= 4.1 && f.getGpa() <= 7.0).count();
-        Long              c              = students.stream().filter(f -> f.getGpa() >= 7.1).count();
-        Map<String, Long> performerGroup = new HashMap<String, Long>();
-        performerGroup.put("poor", a);
-        performerGroup.put("Average", b);
-        performerGroup.put("Excellent", c);
-        return new PerformanceContainer(performerGroup);
-    }
-
-    public static PerformanceContainer performanceContainers(List<Student> students, String s) {
-        Map<String, Long> res = performanceContainer(students).students;
-        Long              r   = res.get(s);
-        return new PerformanceContainer(r);
+    public static List<PerformanceContainer> getPerformanceOfStudents(List<Student> students) {
+        Long poor      = students.stream().filter(f -> f.getGpa() >= 0.0 && f.getGpa() <= 4.0).count();
+        Long average   = students.stream().filter(f -> f.getGpa() >= 4.1 && f.getGpa() <= 7.0).count();
+        Long excellent = students.stream().filter(f -> f.getGpa() >= 7.1).count();
+        return Arrays.asList(new PerformanceContainer("poor", poor),
+                new PerformanceContainer("average", average),
+                new PerformanceContainer("excellent", excellent));
     }
 }

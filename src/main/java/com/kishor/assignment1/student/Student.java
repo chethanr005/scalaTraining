@@ -4,18 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Student {
+    private int    regNo;
     private String name;
     private int    gradeLevel;
     private double gpa;
     private String gender;
     List<String> activities = new ArrayList<>();
 
-    public Student(String name, int gradeLevel, double gpa, String gender, List<String> activities) {
+    public Student(int regNo, String name, int gradeLevel, double gpa, String gender, List<String> activities) {
+        this.regNo = regNo;
         this.name = name;
         this.gradeLevel = gradeLevel;
         this.gpa = gpa;
         this.gender = gender;
         this.activities = activities;
+    }
+
+    public int getRegNo() {
+        return regNo;
     }
 
     public String getGender() {
@@ -60,12 +66,13 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", gradeLevel=" + gradeLevel +
-                ", gpa=" + gpa +
-                ", gender='" + gender + '\'' +
-                ", activities=" + activities +
+        return "Student { " +
+                "Regno = " + regNo + ",\t" +
+                "Name = " + name + ",\t" +
+                "GradeLevel = " + gradeLevel + ",\t" +
+                "Gpa = " + gpa + ",\t" +
+                "Gender = " + gender + ",\t" +
+                "Activities = " + activities +
                 '}';
     }
 

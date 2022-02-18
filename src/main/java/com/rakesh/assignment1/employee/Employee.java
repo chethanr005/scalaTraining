@@ -1,18 +1,17 @@
 package com.rakesh.assignment1.employee;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 public class Employee {
 
 
-    private String name;
-    private String department;
-    private double salary;
-    private String gender;
+    private String    name;
+    private String    department;
+    private double    salary;
+    private String    gender;
     private LocalDate joiningDate;
     private LocalDate dob;
-    private String jobLevel;
+    private String    jobLevel;
 
 
     public Employee(String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {

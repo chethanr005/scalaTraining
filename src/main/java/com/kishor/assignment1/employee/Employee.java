@@ -2,7 +2,8 @@ package com.kishor.assignment1.employee;
 
 import java.time.LocalDate;
 
-public class EmployeeContainer {
+public class Employee {
+    private int       empId;
     private String    name;
     private String    department;
     private double    salary;
@@ -11,7 +12,8 @@ public class EmployeeContainer {
     private LocalDate dob; // date of birth
     private String    jobLevel; // date of birth
 
-    public EmployeeContainer(String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
+    public Employee(int empId, String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
+        this.empId = empId;
         this.name = name;
         this.department = department;
         this.salary = salary;
@@ -19,6 +21,10 @@ public class EmployeeContainer {
         this.joiningDate = joiningDate;
         this.dob = dob;
         this.jobLevel = jobLevel;
+    }
+
+    public int getEmpId() {
+        return empId;
     }
 
     public String getGender() {
@@ -80,13 +86,14 @@ public class EmployeeContainer {
     @Override
     public String toString() {
         return "Employee{" +
-                "name= '" + name + '\'' +
-                ", department= " + department +
-                ", salary= " + salary +
-                ", gender='" + gender + '\'' +
-                ", joiningDate= " + joiningDate +
-                ",Dob= " + dob +
-                ",jobLevel= " + jobLevel +
+                "EmpId = " + empId +
+                ", Name= '" + name + '\'' +
+                ", Department= " + department +
+                ", Salary= " + salary +
+                ", Gender='" + gender + '\'' +
+                ", JoiningDate= " + joiningDate +
+                ", Dob= " + dob +
+                ", JobLevel= " + jobLevel +
                 '}';
     }
 }

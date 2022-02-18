@@ -16,9 +16,10 @@ public class HighestMarksInEachSubjectContainer {
 
     @Override
     public String toString() {
-        return
-                "studentName='" + studentName + '\'' +
-                        ", marks=" + marks +
-                        ", subjectId='" + subjectId + '\'';
+        return "{" +
+                "Marks=" + marks +
+                ", SubjectId=" + subjectId +
+                ", StudentName='" + studentName + '\'' +
+                '}';
     }
 }

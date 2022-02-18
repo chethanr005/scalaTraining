@@ -38,24 +38,29 @@ public class StudentImplementation {
     /**
      * 1. Get total and average marks for all students
      */
-    public static Map<String, TotalAndAverageContainer> getTotalAndAverage(List<Student> studentList) {
-        List<Integer>                         total   = studentList.stream().map(m -> m.getMarksList().stream().reduce(0, (a, b) -> a + b)).collect(Collectors.toList());
-        List<Integer>                         average = studentList.stream().map(m -> m.getMarksList().stream().reduce(0, (a, b) -> a + b / 3)).collect(Collectors.toList());
-        List<String>                          names   = StudentImplementation.getStudents().stream().map(m -> m.getName()).collect(Collectors.toList());
-        Map<String, TotalAndAverageContainer> result  = new TreeMap<>();
-        for (int i = 0; i < total.size(); i++) {
-            result.put(names.get(i), new TotalAndAverageContainer(total.get(i), average.get(i)));
-        }
-        return result;
+    public static List<TotalAndAverageContainer> getTotalAndAverage(List<Student> studentList) {
+        return studentList.stream().map(m1 -> {
+            Integer total   = m1.getMarksList().stream().reduce(0, (a, b) -> a + b);
+            Integer average = m1.getMarksList().stream().reduce(0, (a, b) -> a + b / 3);
+            return new TotalAndAverageContainer(m1.getName(), total, average);
+        }).collect(Collectors.toList());
     }
 
     /**
      * 2. Total marks scored by each standard
      */
-    public static Integer totalMarksOfEachStandard(List<Student> studentList, Integer standard) {
-        return studentList.stream().filter(f -> f.getStandard() == standard).map(m -> {
-            return m.getMarksList().stream().reduce(0, (a, b) -> a + b);
-        }).reduce(0, (a, b) -> a + b);
+    public static List<TotalMarksOfEachGradeContainer> totalMarksOfEachStandard(List<Student> studentList) {
+        List<Integer> distinctStandard = studentList.stream().map(m -> m.getStandard()).distinct().collect(Collectors.toList());
+        List<Integer> total = distinctStandard.stream().map(m1 -> {
+            return studentList.stream()
+                              .filter(f -> f.getStandard() == m1)
+                              .map(m2 -> m2.getMarksList().stream().reduce(0, (a, b) -> a + b)).reduce(0, (a, b) -> a + b);
+        }).collect(Collectors.toList());
+        List<TotalMarksOfEachGradeContainer> totalMarksOfEachGradeContainerList = new ArrayList<TotalMarksOfEachGradeContainer>();
+        for (int i = 0; i < distinctStandard.size(); i++) {
+            totalMarksOfEachGradeContainerList.add(new TotalMarksOfEachGradeContainer(distinctStandard.get(i), total.get(i)));
+        }
+        return totalMarksOfEachGradeContainerList;
     }
 
     /**
@@ -63,15 +68,11 @@ public class StudentImplementation {
      */
     public static List<HighestMarksScoredContainer> highestMarksInEachStandardForGivenSubject(List<Student> studentList, String subject) {
         int subjectId = Subject.giveId(subject);
-        return Student.getDistinctStandard(studentList)
-                      .stream()
-                      .map(m1 -> {
-                          return new HighestMarksScoredContainer(studentList.stream().filter(f1 -> f1.getStandard() == m1).collect(Collectors.toList())
-                                                                            .stream().max(Comparator.comparing(c -> c.getMarksList(c, subjectId)))
-                                                                            .map(Student::getName).get(), m1);
-                      }).collect(Collectors.toList());
-
-
+        return Student.getDistinctStandard(studentList).stream().map(m1 -> {
+            String name = studentList.stream().filter(f -> f.getStandard() == m1).collect(Collectors.toList())
+                                     .stream().max(Comparator.comparing(c -> c.getMarksList(c, subjectId))).map(Student::getName).get();
+            return new HighestMarksScoredContainer(name, m1);
+        }).collect(Collectors.toList());
     }
 
 
@@ -93,10 +94,13 @@ public class StudentImplementation {
         return Subject.getIdList(getSubject()).stream()
                       .map(m1 -> studentList.stream()
                                             .max(Comparator.comparing(s -> s.getSpecificSubjectMarks(s, m1)))
-                                            .map(m2 -> new HighestMarksInEachSubjectContainer(m1,
-                                                    m2.getMarkDetails().stream().filter(f1 -> f1.getId() == m1)
-                                                      .map(m3 -> m3.getMarks()).findAny().get(),
-                                                    m2.getName())).get()).collect(Collectors.toList());
+                                            .map(m2 -> {
+                                                Integer subjectId = m1;
+                                                Integer marks = m2.getMarkDetails().stream().filter(f1 -> f1.getId() == m1)
+                                                                  .map(m3 -> m3.getMarks()).findAny().get();
+                                                String name = m2.getName();
+                                                return new HighestMarksInEachSubjectContainer(subjectId, marks, name);
+                                            }).get()).collect(Collectors.toList());
     }
 
     /**
@@ -108,16 +112,5 @@ public class StudentImplementation {
                                                 .map(m2 -> new AwardWinningStudentCOntainer(m1.getName(), m2.getId(), m2.getMarks())).collect(Collectors.toList()))
                           .flatMap(f3 -> f3.stream())
                           .collect(Collectors.toList());
-    }
-
-    public static void main(String[] args) {
-        System.out.println(getTotalAndAverage(StudentImplementation.getStudents()) + "\n\n=================================");
-        System.out.println(totalMarksOfEachStandard(StudentImplementation.getStudents(), 2) + "\n\n=================================");
-        System.out.println(highestMarksInEachStandardForGivenSubject(StudentImplementation.getStudents(), "Maths") + "\n\n=================================");
-        System.out.println(studentWhoAreAbsentForExam(StudentImplementation.getStudents()) + "\n\n=================================");
-        System.out.println(highestMarksInEachSubject(StudentImplementation.getStudents()) + "\n\n=================================");
-        System.out.println(awardWinningStudents(StudentImplementation.getStudents()) + "\n\n=================================");
-        //System.out.println(totalMarksOfEachStandard(StudentImplementation.getStudents(),2));
-
     }
 }
