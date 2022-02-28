@@ -1,10 +1,11 @@
-package com.kishor.assignment1.student;
+package com.kishor.assignment4.student;
 
 import java.util.Objects;
 
 /**
- * 4. get no of students participating in each type of activity , Return result in class ActivityContainer(String activity, int students)
+ * Created by Kishor on Feb 25, 2022.
  */
+
 public class ActivityContainer {
     String activity;
     Long   students;

@@ -71,7 +71,7 @@ public class EmployeeImplementationTest {
      * 5. promote employees having 8 years experience to Senior position
      */
     @Test
-    public void promoteEmployee() throws SQLException {
+    public void getpromoteEmployee() throws SQLException {
         List<Employee>                 list          = EmployeeDatabase.getAllEmployees();
         List<PromoteEmployeeContainer> expectedValue = new ArrayList<PromoteEmployeeContainer>();
         expectedValue.add(new PromoteEmployeeContainer("Edwin", "Senior"));

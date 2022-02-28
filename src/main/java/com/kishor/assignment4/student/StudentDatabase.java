@@ -1,21 +1,25 @@
-package com.kishor.assignment3.student;
-
-/**
- * Created by Kishor on Feb 15, 2022.
- */
-
-import com.kishor.assignment1.student.Student;
+package com.kishor.assignment4.student;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class StudentDatabase {
+/**
+ * Created by Kishor on Feb 24, 2022.
+ */
+
+public class StudentDatabase implements IStudent {
     static Connection        con   = null;
     static PreparedStatement pstmt = null;
     static ResultSet         rs    = null;
+    ExecutorService service = Executors.newCachedThreadPool();
 
     private static void getConnection() {
         try {
@@ -66,46 +70,59 @@ public class StudentDatabase {
         return activities;
     }
 
-    public static List<Student> getAllStudents() throws SQLException {
-        List<Student> listOfStudent = new ArrayList<>();
-        getConnection();
-        String    qry  = "select * from public.\"StudentDataBase\";";
-        Statement stmt = con.createStatement();
-        rs = stmt.executeQuery(qry);
-        while (rs.next()) {
-            listOfStudent.add(new Student(rs.getInt("RegNo"),
-                    rs.getString("Name"),
-                    rs.getInt("GradeLevel"),
-                    rs.getDouble("GPA"),
-                    rs.getString("Gender"),
-                    Arrays.asList((String[]) (rs.getArray("Activities")).getArray())));
-        }
+    @Override
+    public CompletableFuture<List<Student>> getAllStudents() throws SQLException {
+        Supplier<List<Student>> getStudent = () -> {
+            List<Student> listOfStudent = new ArrayList<>();
+            getConnection();
+            String qry = "select * from public.\"StudentDataBase\";";
+            try {
+                Statement stmt = con.createStatement();
+                rs = stmt.executeQuery(qry);
+                while (rs.next()) {
+                    listOfStudent.add(new Student(rs.getInt("RegNo"),
+                            rs.getString("Name"),
+                            rs.getInt("GradeLevel"),
+                            rs.getDouble("GPA"),
+                            rs.getString("Gender"),
+                            Arrays.asList((String[]) (rs.getArray("Activities")).getArray())));
+                }
+            } catch (SQLException e) {
+            }
 
-        closeConnection();
-        return listOfStudent;
+            closeConnection();
+            return listOfStudent;
+        };
+        return CompletableFuture.supplyAsync(getStudent, service);
     }
 
-    public static Student getStudentById(int regNo) throws SQLException {
-        getConnection();
-        String qry = "select * from public.\"StudentDataBase\" where \"RegNo\" =" + regNo + ";";
-        pstmt = con.prepareStatement(qry);
-        rs = pstmt.executeQuery();
-        Student student = null;
-        if (rs.next()) {
-            student = new Student(
-                    rs.getInt("RegNo"),
-                    rs.getString("Name"),
-                    rs.getInt("GradeLevel"),
-                    rs.getDouble("GPA"),
-                    rs.getString("Gender"),
-                    getActivities(regNo));
-        }
-        closeConnection();
-        return student;
+    public CompletableFuture<Student> getStudentById(int regNo) throws SQLException {
+        Supplier<Student> getStudentsById = () -> {
+            Student student = null;
+            getConnection();
+            String qry = "select * from public.\"StudentDataBase\" where \"RegNo\" =" + regNo + ";";
+            try {
+                pstmt = con.prepareStatement(qry);
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    student = new Student(
+                            rs.getInt("RegNo"),
+                            rs.getString("Name"),
+                            rs.getInt("GradeLevel"),
+                            rs.getDouble("GPA"),
+                            rs.getString("Gender"),
+                            getActivities(regNo));
+                }
+                closeConnection();
+            } catch (SQLException e) {
+            }
+            return student;
+        };
+        return CompletableFuture.supplyAsync(getStudentsById, service);
 
     }
 
-    public static Student updateValueThroughRegNo(String columnName, String value, int regNo) throws SQLException {
+    public CompletableFuture<Student> updateValueThroughRegNo(String columnName, String value, int regNo) throws SQLException {
         getConnection();
         Statement stmt = con.createStatement();
         String    qry  = "update public.\"StudentDataBase\" set \"" + columnName + "\"=" + value + " where \"RegNo\"=" + regNo + ";";
@@ -114,7 +131,7 @@ public class StudentDatabase {
         return getStudentById(regNo);
     }
 
-    public static Student insertNewRecord(Student student) throws SQLException {
+    public CompletableFuture<Student> insertNewRecord(Student student) throws SQLException {
         getConnection();
         Statement stmt = con.createStatement();
         String qry = "insert into public.\"StudentDataBase\"(\"RegNo\",\"Name\",\"GradeLevel\",\"GPA\",\"Gender\",\"Activities\") " +
@@ -126,7 +143,7 @@ public class StudentDatabase {
         return getStudentById(student.getRegNo());
     }
 
-    public static List<Student> deleteStudentById(int regNo) throws SQLException {
+    public CompletableFuture<List<Student>> deleteStudentById(int regNo) throws SQLException, IllegalArgumentException {
         getConnection();
         Statement stmt = con.createStatement();
         String    qry  = "delete from public.\"StudentDataBase\" where \"RegNo\"=" + regNo + ";";
@@ -135,12 +152,9 @@ public class StudentDatabase {
         return getAllStudents();
     }
 
-    public static void main(String[] args) throws SQLException {
-        //getAllStudents().stream().forEach(System.out::println);
-       // System.out.println(getStudentById(1001));
-//        System.out.println(getActivities(1001));
-        //System.out.println(updateValueThroughRegNo("Name","'Alex'", 1001));
-        //System.out.println(insertNewRecord(new Student(1007,"Ashok1", 3, 6.9, "male", Arrays.asList("swimming", "basketball", "volleyball"))));
-        // deleteStudentById(1006).stream().forEach(System.out::println);
+    public static void main(String[] args) throws SQLException, ExecutionException, InterruptedException {
+        StudentDatabase i = new StudentDatabase();
+        i.getAllStudents().get().stream().forEach(System.out::println);
     }
 }
+

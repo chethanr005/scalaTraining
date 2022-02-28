@@ -1,9 +1,9 @@
-package com.kishor.assignment1.employee;
+package com.kishor.assignment4.employee;
 
 import java.util.Objects;
 
 /**
- * 4. Increase salary of employees for given Department , not necessary that there will be hike !
+ * Created by Kishor on Feb 28, 2022.
  */
 
 public class IncreaseSalaryContainer {

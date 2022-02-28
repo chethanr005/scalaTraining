@@ -33,10 +33,10 @@ public class StudentImplementation {
     }
 
     public static List<ActivityContainer> activityContainers(List<Student> students) {
-        List<String> distinctActivities = students.stream().map(m -> m.getActivities().stream().collect(Collectors.toList())).flatMap(f -> f.stream()).distinct().collect(Collectors.toList());
-        return distinctActivities.stream().map(m1 -> {
-            Long count = students.stream().map(m2 -> m2.getActivities()).flatMap(f -> f.stream()).filter(f -> f.equals(m1)).count();
-            return new ActivityContainer(m1, count);
+        List<String> distinctActivities = students.stream().flatMap(m -> m.getActivities().stream()).distinct().collect(Collectors.toList());
+        return distinctActivities.stream().map(activity -> {
+            Long count = students.stream().map(student -> student.getActivities()).flatMap(f -> f.stream()).filter(f -> f.equals(activity)).count();
+            return new ActivityContainer(activity, count);
         }).collect(Collectors.toList());
     }
 

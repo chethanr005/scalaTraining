@@ -7,5 +7,5 @@ lazy val root = (project in file("."))
     name := "scala-training"
   )
 
-libraryDependencies += "junit" % "junit" % "4.13" % Test
-libraryDependencies += "org.postgresql" % "postgresql" % "42.3.1"
+libraryDependencies += "junit" % "junit" % "4.13.2" % Test
+libraryDependencies += "org.postgresql" % "postgresql" % "42.3.2"

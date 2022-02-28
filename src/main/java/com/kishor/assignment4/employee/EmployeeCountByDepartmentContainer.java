@@ -1,10 +1,11 @@
-package com.kishor.assignment1.employee;
+package com.kishor.assignment4.employee;
 
 import java.util.Objects;
 
 /**
- * 2. Get no of employees by given department
+ * Created by Kishor on Feb 28, 2022.
  */
+
 public class EmployeeCountByDepartmentContainer {
     public Long   employeeCount;
     public String department;

@@ -1,6 +1,7 @@
 package com.kishor.assignment1.employee;
 
 import com.kishor.assignment3.employee.EmployeeDatabase;
+import com.kishor.assignment3.student.StudentDatabase;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -30,55 +31,45 @@ public class EmployeeImplementation {
     }
 
     public static List<GroupByDepartmentContainer> grpByDept(List<Employee> employees) {
-        List<String> distDpartment = employees.stream().map(m -> m.getDepartment()).distinct().collect(toList());
-        return distDpartment.stream()
-                            .map(m -> {
+        return employees.stream().map(employee -> employee.getDepartment()).distinct().collect(toList()).stream()
+                            .map(department -> {
                                 return new GroupByDepartmentContainer(employees.stream()
-                                                                               .filter(f1 -> f1.getDepartment().equals(m))
-                                                                               .map(m1 -> m1.getName()).collect(toList()), m);
+                                                                               .filter(employee1 -> employee1.getDepartment().equals(department))
+                                                                               .map(employee2 -> employee2.getName()).collect(toList()), department);
                             })
                             .collect(toList());
     }
 
-    public static List<IncreaseSalaryContainer> increaseSalaryForDept(List<Employee> employees, String s, double hike) throws SQLException {
-        List<Integer> empIdOfDept = employees.stream()
-                                             .filter(f -> f.getDepartment().equals(s))
-                                             .map(m -> m.getEmpId())
-                                             .collect(Collectors.toList());
-        List<String> empNames = empIdOfDept.stream()
-                                           .map(m -> employees.stream()
-                                                              .filter(f -> f.getEmpId() == m)
-                                                              .map(m1 -> m1.getName()).collect(toList()))
-                                           .flatMap(f -> f.stream()).collect(toList());
-
-        return empNames.stream().map(m1 -> employees.stream().filter(f -> f.getName() == m1)
-                                                    .map(m2 -> {
-                                                        double v = m2.getSalary() + hike;
-                                                        empIdOfDept.stream().forEach(f -> {
-                                                            try {
-                                                                if (f == m2.getEmpId()) {
-                                                                    EmployeeDatabase.updateValueThroughEmpId("Salary", String.valueOf(v), f);
-                                                                }
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            }
-                                                        });
-                                                        return new IncreaseSalaryContainer(m1, v);
-                                                    }).collect(toList()))
-                       .flatMap(f -> f.stream()).collect(toList());
+    public static List<IncreaseSalaryContainer> increaseSalaryForDept(List<Employee> employees, String department, double hike) throws SQLException {
+        return employees.stream().filter(employee -> employee.getDepartment().equals(department)).collect(toList())
+                        .stream().map(employee -> {
+                    double increasedSalary = employee.getSalary() + hike;
+                        try {
+                            EmployeeDatabase.updateValueThroughEmpId("Salary", String.valueOf(increasedSalary), employee.getEmpId());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    return new IncreaseSalaryContainer(employee.getName(), increasedSalary);
+                }).collect(toList());
     }
 
     public static List<PromoteEmployeeContainer> promoteEmployee(List<Employee> employees) throws SQLException {
-        return employees.stream().filter(f -> (Period.between(f.getJoiningDate(), LocalDate.now()).getYears()) > 8)
-                        .map(m1 -> {
+        return employees.stream().filter(employee -> (Period.between(employee.getJoiningDate(), LocalDate.now()).getYears()) > 8)
+                        .map(employee -> {
                             try {
-                                EmployeeDatabase.updateValueThroughEmpId("JobLevel", "Senior", m1.getEmpId());
+                                EmployeeDatabase.updateValueThroughEmpId("JobLevel", "Senior", employee.getEmpId());
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            return new PromoteEmployeeContainer(m1.getName(), m1.getJobLevel());
+                            return new PromoteEmployeeContainer(employee.getName(), employee.getJobLevel());
                         })
                         .collect(Collectors.toList());
+    }
+
+    public static void main(String[] args) throws SQLException {
+  List<Employee> e = EmployeeDatabase.getAllEmployees();
+        //System.out.println(increaseSalaryForDept(e,"IT Development",5000l));
+        System.out.println(grpByDept(e));
     }
 
 }

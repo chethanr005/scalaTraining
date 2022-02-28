@@ -55,7 +55,7 @@ public class StudentImplementationTest {
      * 4. get no of students participating in each type of activity , Return result in class ActivityContainer(String activity, int students)
      */
     @Test
-    public void getAllPerformance() {
+    public void getActivities() {
         List<ActivityContainer> expectedValue = Arrays.asList(new ActivityContainer("Painting", 2l),
                 new ActivityContainer("Swimming", 4l),
                 new ActivityContainer("Gymnastics", 2l),

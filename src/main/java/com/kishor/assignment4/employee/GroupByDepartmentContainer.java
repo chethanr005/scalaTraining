@@ -1,11 +1,12 @@
-package com.kishor.assignment1.employee;
+package com.kishor.assignment4.employee;
 
 import java.util.List;
 import java.util.Objects;
 
 /**
- * 3. group employees by department
+ * Created by Kishor on Feb 28, 2022.
  */
+
 public class GroupByDepartmentContainer {
     List<String> names;
     String       dept;
