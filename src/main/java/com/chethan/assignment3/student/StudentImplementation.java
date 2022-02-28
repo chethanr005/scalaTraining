@@ -1,10 +1,11 @@
 package com.chethan.assignment3.student;
 
 
-import java.sql.*;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Function;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Chethan on Feb 14, 2022.
@@ -39,10 +40,9 @@ public class StudentImplementation {
     }
 
 
-
     // 4. No of students participating in each type of activity-1
     public static ActivityContainer getActivityContainer(List<Student> studentList, String activity) {
-        List<String> activityList = studentList.stream().map(i -> i.getActivities()).flatMap(k -> k.stream()).distinct().collect(Collectors.toList());
+        List<String> activityList = studentList.stream().flatMap(k -> k.getActivities().stream()).distinct().collect(Collectors.toList());
         long         studentCount = studentList.stream().filter((k -> k.getActivities().contains(activity))).count();
         return new ActivityContainer(activity, studentCount);
     }
@@ -50,7 +50,7 @@ public class StudentImplementation {
     // 4. No of students participating in each type of activity-2
     public static Map<String, Long> getActivityContainer2(List<Student> studentList) {
         Map<String, Long> m1               = new TreeMap<String, Long>();
-        List<String>      distinctActivity = studentList.stream().map(i -> i.getActivities()).flatMap(k -> k.stream()).distinct().collect(Collectors.toList());
+        List<String>      distinctActivity = studentList.stream().flatMap(k -> k.getActivities().stream()).distinct().collect(Collectors.toList());
         distinctActivity.stream().forEach(i -> {
             m1.put(i, studentList.stream().filter(k -> k.getActivities().contains(i)).count());
         });

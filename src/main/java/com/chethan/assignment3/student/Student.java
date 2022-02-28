@@ -40,7 +40,9 @@ public class Student {
 
     //Getters
 
-    public String getId() {return id;}
+    public String getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -62,8 +64,8 @@ public class Student {
         return activities;
     }
 
-    Student(String id,String name, double gpa, String gender, int gradeLevel, List<String> activities) {
-        this.id=id;
+    Student(String id, String name, double gpa, String gender, int gradeLevel, List<String> activities) {
+        this.id = id;
         this.name = name;
         this.gpa = gpa;
         this.gender = gender;

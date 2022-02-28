@@ -1,8 +1,9 @@
-package com.chethan.assignment3.employee;
+package com.chethan.assignment4.employee;
 
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 
 //Employee
@@ -100,5 +101,13 @@ public class Employee {
     @Override
     public String toString() {
         return id + " " + name + " " + department + " " + salary + " " + gender + " " + joiningDate + " " + dob + " " + jobLevel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return id == employee.id && Double.compare(employee.salary, salary) == 0 && Objects.equals(name, employee.name) && Objects.equals(department, employee.department) && Objects.equals(gender, employee.gender) && Objects.equals(joiningDate, employee.joiningDate) && Objects.equals(dob, employee.dob) && Objects.equals(jobLevel, employee.jobLevel);
     }
 }

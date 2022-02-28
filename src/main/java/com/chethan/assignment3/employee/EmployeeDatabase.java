@@ -146,10 +146,10 @@ public class EmployeeDatabase {
             DateTimeFormatter d1   = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate                  adob = LocalDate.parse(employee.getDob().toString(), d1);
 
-        if (Period.between(adob, LocalDate.now()).getYears() >= 21 && !Period.between(employee.getJoiningDate(),LocalDate.now()).isNegative()) {
+            if (Period.between(adob, LocalDate.now()).getYears() >= 21 && !Period.between(employee.getJoiningDate(),LocalDate.now()).isNegative()) {
                 stmt.executeUpdate("insert into public.\"Employee\" values ('" + employee.getId() + "', '" + employee.getName() + "', '" + employee.getDepartment()
                         + "', " + employee.getSalary() + ", '" + employee.getGender() + "', '" + employee.getJoiningDate().toString() + "', '" + employee.getDob().toString() + "', '" + employee.getJobLevel() + "')");
-        } else throw new IllegalAccessException();
+            } else throw new IllegalAccessException();
 
         } catch (SQLException | IllegalAccessException e) {
             throw  new IllegalAccessException("error adding an employee: check if the details of the employee is valid");
@@ -237,4 +237,6 @@ public class EmployeeDatabase {
         closeDatabaseConnection();
     }
 }
+
+
 
