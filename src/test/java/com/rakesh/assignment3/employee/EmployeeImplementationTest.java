@@ -1,23 +1,23 @@
-package com.rakesh.assignment1.employee;
+package com.rakesh.assignment3.employee;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 
-public class EmployeeUnitTest {
+/**
+ * Created by Dark Alpha on Feb 17, 2022.
+ */
 
-    public static List<Employee> employeeList = EmployeeImplementation.getDatabase();
+public class EmployeeImplementationTest {
+    public static List<Employee1> employeeList = EmployeeDataBase.getAllEmployees();
 
     //1. Don't allow child labours while taking employee // 21 years
-    @Test
-    public void addNewEmployeeCheck() {
-        AddEmployeeContainer res = EmployeeImplementation
-                .addEmployee("Dark", "IT Development", 25000.0, "male", "2021-11-02", "2000-01-17", "Junior");
-        Assert.assertEquals(true, res.isAdded);
+    @Test(expected = Exception.class)
+    public void addNewEmployee() {
+        EmployeeImplementation.addNewEmployee(new Employee1(1005, "Xyz", "IT", 2000.0, "male", LocalDate.of(2021, 4, 12)
+                , LocalDate.of(2020, 1, 21), "Junior"));
     }
 
 
@@ -54,15 +54,15 @@ public class EmployeeUnitTest {
     @Test
     public void getHikedEmployeeCheck() {
         //If Optional department is present.
-        HikeSalaryContainer actualMap = EmployeeImplementation.getHikedEmployees(employeeList, "IT Development");
+        HikeSalaryContainer actualMap = EmployeeImplementation.getHikedEmployees(employeeList, "IT Development", 5000);
 
         Map<String, Double> expectedMap = new HashMap<>();
-        expectedMap.put("John", 40000.0);
-        expectedMap.put("Sunil", 40000.0);
+        expectedMap.put("John", 50000.0);
+        expectedMap.put("Sunil", 50000.0);
         Assert.assertEquals(expectedMap, actualMap.hikedEmployees);
 
         //if Optional department is null;
-        HikeSalaryContainer res = EmployeeImplementation.getHikedEmployees(employeeList, null);
+        HikeSalaryContainer res = EmployeeImplementation.getHikedEmployees(employeeList, null, 0);
         Assert.assertNull(res.hikedEmployees);
     }
 
@@ -70,12 +70,12 @@ public class EmployeeUnitTest {
     //5. promote employees having 8 years experience to Senior position
     @Test
     public void promotedEmployeesCheck() {
-        PromoteEmployeeContainer actualMap = EmployeeImplementation.promoteEmployees(employeeList);
+        List<PromoteEmployeeContainer> actual=EmployeeImplementation.promoteEmployees(employeeList);
 
-        Map<String, String> expectedMap = new HashMap<>();
-        expectedMap.put("Edwin", "Senior");
+        List<PromoteEmployeeContainer> expected=new ArrayList<>();
+        expected.add(new PromoteEmployeeContainer(1004,"Edwin","Senior"));
 
-        Assert.assertEquals(expectedMap, actualMap.promotedEmployees);
+        Assert.assertEquals(expected.toString(), actual.toString());
 
     }
 }
