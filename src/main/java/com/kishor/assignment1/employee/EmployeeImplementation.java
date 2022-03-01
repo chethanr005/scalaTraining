@@ -1,10 +1,12 @@
 package com.kishor.assignment1.employee;
 
+import com.kishor.assignment3.employee.EmployeeDatabase;
+import com.kishor.assignment3.student.StudentDatabase;
+
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -14,57 +16,60 @@ import static java.util.stream.Collectors.toList;
  */
 
 public class EmployeeImplementation {
-
-    public static EmployeeContainer addEmployee(String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
+    public static Employee addEmployee(int empId, String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
         int p = Period.between(dob, LocalDate.now()).getYears();
         if (p > 21) {
-            return new EmployeeContainer(name, department, salary, gender, joiningDate, dob, jobLevel);
+            return new Employee(empId, name, department, salary, gender, joiningDate, dob, jobLevel);
         } else {
             return null;
         }
     }
 
-    public static EmployeeCountByDepartmentContainer noOfEmpByCount(List<EmployeeContainer> employeeContainers, String dept) {
-        Long countOFDept = employeeContainers.stream().filter(f -> f.getDepartment() == dept).count();
-        return new EmployeeCountByDepartmentContainer(countOFDept);
+    public static EmployeeCountByDepartmentContainer noOfEmpByCount(List<Employee> employees, String dept) {
+        Long countOFDept = employees.stream().filter(f -> f.getDepartment().equals(dept)).count();
+        return new EmployeeCountByDepartmentContainer(dept, countOFDept);
     }
 
-    public static GroupByDepartmentContainer grpByDept(List<EmployeeContainer> employeeContainers) {
-        Map<String, List<EmployeeContainer>> depts = employeeContainers.stream()
-                                                                       .collect(Collectors.groupingBy(EmployeeContainer::getDepartment));
-        Map<String, List<String>> grpByDepts = new HashMap<>();
-        depts.forEach((k, v) -> grpByDepts.put(k, v.stream().map(m -> m.getName()).collect(toList())));
-        return new GroupByDepartmentContainer(grpByDepts);
+    public static List<GroupByDepartmentContainer> grpByDept(List<Employee> employees) {
+        return employees.stream().map(employee -> employee.getDepartment()).distinct().collect(toList()).stream()
+                            .map(department -> {
+                                return new GroupByDepartmentContainer(employees.stream()
+                                                                               .filter(employee1 -> employee1.getDepartment().equals(department))
+                                                                               .map(employee2 -> employee2.getName()).collect(toList()), department);
+                            })
+                            .collect(toList());
     }
 
-    public static IncreaseSalaryContainer increaseSalaryForDept(List<EmployeeContainer> employeeContainers, String s) {
-        //Optional<String>        dept             = Optional.ofNullable(s);
-        Map<String, Double>     salIncresedNames = new HashMap<>();
-        List<EmployeeContainer> empNamesOfDept   = employeeContainers.stream().filter(m -> m.getDepartment() == s).collect(Collectors.toList());
-        for (EmployeeContainer i : empNamesOfDept) {
-            increment(i);
-            salIncresedNames.put(i.getName(), i.getSalary());
-        }
-        return new IncreaseSalaryContainer(salIncresedNames);
+    public static List<IncreaseSalaryContainer> increaseSalaryForDept(List<Employee> employees, String department, double hike) throws SQLException {
+        return employees.stream().filter(employee -> employee.getDepartment().equals(department)).collect(toList())
+                        .stream().map(employee -> {
+                    double increasedSalary = employee.getSalary() + hike;
+                        try {
+                            EmployeeDatabase.updateValueThroughEmpId("Salary", String.valueOf(increasedSalary), employee.getEmpId());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    return new IncreaseSalaryContainer(employee.getName(), increasedSalary);
+                }).collect(toList());
     }
 
-    private static void increment(EmployeeContainer employeeContainer) {
-        Double sal = employeeContainer.getSalary();
-        employeeContainer.setSalary(sal + 5000L);
+    public static List<PromoteEmployeeContainer> promoteEmployee(List<Employee> employees) throws SQLException {
+        return employees.stream().filter(employee -> (Period.between(employee.getJoiningDate(), LocalDate.now()).getYears()) > 8)
+                        .map(employee -> {
+                            try {
+                                EmployeeDatabase.updateValueThroughEmpId("JobLevel", "Senior", employee.getEmpId());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            return new PromoteEmployeeContainer(employee.getName(), employee.getJobLevel());
+                        })
+                        .collect(Collectors.toList());
     }
 
-    public static PromoteEmployeeContainer promoteEmployee(List<EmployeeContainer> employeeContainers) {
-        List<EmployeeContainer> emp            = employeeContainers.stream().filter(f -> (Period.between(f.getJoiningDate(), LocalDate.now()).getYears()) > 8).collect(Collectors.toList());
-        Map<String, String>     promoteEmpName = new HashMap<>();
-        for (EmployeeContainer i : emp) {
-            promote(i);
-            promoteEmpName.put(i.getName(), i.getJobLevel());
-        }
-        return new PromoteEmployeeContainer(promoteEmpName);
-    }
-
-    public static void promote(EmployeeContainer employeeContainer) {
-        employeeContainer.setJobLevel("Senior");
+    public static void main(String[] args) throws SQLException {
+  List<Employee> e = EmployeeDatabase.getAllEmployees();
+        //System.out.println(increaseSalaryForDept(e,"IT Development",5000l));
+        System.out.println(grpByDept(e));
     }
 
 }

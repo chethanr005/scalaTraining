@@ -3,9 +3,14 @@ package com.rakesh.assignment1.employee;
 import java.util.Map;
 
 public class EmployeeDepartmentContainer {
-    long employeeCount;
-    Map<String,Long> getAllDepartmentCount;
+    long              employeeCount;
+    Map<String, Long> getAllDepartmentCount;
 
-    public EmployeeDepartmentContainer(Map<String, Long> getAllDepartmentCount) {this.getAllDepartmentCount = getAllDepartmentCount;}
-    public EmployeeDepartmentContainer(long employeeCount) {this.employeeCount = employeeCount;}
+    public EmployeeDepartmentContainer(Map<String, Long> getAllDepartmentCount) {
+        this.getAllDepartmentCount = getAllDepartmentCount;
+    }
+
+    public EmployeeDepartmentContainer(long employeeCount) {
+        this.employeeCount = employeeCount;
+    }
 }
