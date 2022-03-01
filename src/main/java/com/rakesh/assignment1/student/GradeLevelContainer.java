@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class GradeLevelContainer {
 
-    public long studentsCount;
+    public long               studentsCount;
     public Map<Integer, Long> gradeCountMap;
 
     public GradeLevelContainer(Map<Integer, Long> gradeCountMap) {
@@ -17,9 +17,6 @@ public class GradeLevelContainer {
     public GradeLevelContainer(long studentsCount) {
         this.studentsCount = studentsCount;
     }
-
-
-
 
 
 }
