@@ -1,16 +1,35 @@
 package com.kishor.assignment1.employee;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 /**
  * 3. group employees by department
  */
 public class GroupByDepartmentContainer {
-    public Map<String, List<String>> grpByDept;
+    List<String> names;
+    String       dept;
 
-    GroupByDepartmentContainer(Map<String, List<String>> grpByDept) {
-        this.grpByDept = grpByDept;
+    public GroupByDepartmentContainer(List<String> names, String dept) {
+        this.names = names;
+        this.dept = dept;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GroupByDepartmentContainer that = (GroupByDepartmentContainer) o;
+        return names.equals(that.names) && dept.equals(that.dept);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(names, dept);
+    }
+
+    @Override
+    public String toString() {
+        return dept + " " + names;
+    }
 }
