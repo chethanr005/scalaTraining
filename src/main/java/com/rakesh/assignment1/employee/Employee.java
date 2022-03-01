@@ -14,7 +14,7 @@ public class Employee {
     private String    jobLevel;
 
 
-    public Employee(String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
+    public  Employee(String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
         this.name = name;
         this.department = department;
         this.salary = salary;
@@ -45,10 +45,6 @@ public class Employee {
         return joiningDate;
     }
 
-    public LocalDate getDob() {
-        return dob;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -63,14 +59,6 @@ public class Employee {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public void setJoiningDate(LocalDate joiningDate) {
-        this.joiningDate = joiningDate;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
     }
 
     public void setJobLevel(String jobLevel) {

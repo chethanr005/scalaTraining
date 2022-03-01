@@ -4,8 +4,7 @@ package com.chethan.assignment1.employee;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by Chethan on Feb 01, 2022.
