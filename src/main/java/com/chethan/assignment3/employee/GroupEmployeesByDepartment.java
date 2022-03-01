@@ -24,7 +24,7 @@ public class GroupEmployeesByDepartment {
 
     public boolean equals(GroupEmployeesByDepartment g) {
         System.out.println();
-       return dept.equals(g.dept)&& employees==g.employees;
+        return dept.equals(g.dept)&& employees==g.employees;
     }
 
     @Override
