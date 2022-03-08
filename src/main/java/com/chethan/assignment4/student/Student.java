@@ -36,7 +36,7 @@ public class Student {
     }
 
     //Setters
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -46,7 +46,7 @@ public class Student {
 
     //Getters
 
-    private void setGpa(double gpa) {
+    public void setGpa(double gpa) {
         this.gpa = gpa;
     }
 
@@ -54,7 +54,7 @@ public class Student {
         return gender;
     }
 
-    private void setGender(String gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -62,7 +62,7 @@ public class Student {
         return gradeLevel;
     }
 
-    private void setGradeLevel(int gradeLevel) {
+    public void setGradeLevel(int gradeLevel) {
         this.gradeLevel = gradeLevel;
     }
 
@@ -70,7 +70,7 @@ public class Student {
         return activities;
     }
 
-    private void setActivities(List<String> activities) {
+    public void setActivities(List<String> activities) {
         this.activities = activities;
     }
 
