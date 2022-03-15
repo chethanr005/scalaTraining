@@ -1,6 +1,7 @@
 package com.kishor.assignment4.employee;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * Created by Kishor on Feb 28, 2022.
@@ -15,7 +16,7 @@ public class Employee {
     private String    gender;
     private LocalDate joiningDate;
     private LocalDate dob; // date of birth
-    private String    jobLevel; // date of birth
+    private String    jobLevel;
 
     public Employee(int empId, String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
         this.empId = empId;
@@ -100,5 +101,18 @@ public class Employee {
                 ", Dob= " + dob +
                 ", JobLevel= " + jobLevel +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return empId == employee.empId && Double.compare(employee.salary, salary) == 0 && Objects.equals(name, employee.name) && Objects.equals(department, employee.department) && Objects.equals(gender, employee.gender) && Objects.equals(joiningDate, employee.joiningDate) && Objects.equals(dob, employee.dob) && Objects.equals(jobLevel, employee.jobLevel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(empId, name, department, salary, gender, joiningDate, dob, jobLevel);
     }
 }
