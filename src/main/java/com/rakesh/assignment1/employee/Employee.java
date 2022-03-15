@@ -14,7 +14,7 @@ public class Employee {
     private String    jobLevel;
 
 
-    public  Employee(String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
+    public Employee(String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
         this.name = name;
         this.department = department;
         this.salary = salary;

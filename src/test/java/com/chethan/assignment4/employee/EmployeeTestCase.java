@@ -14,7 +14,7 @@ import java.util.Optional;
 public class EmployeeTestCase {
     IEmployeeDatabase      employeeDatabase       = new EmployeeDatabase();
     EmployeeImplementation employeeImplementation = new EmployeeImplementation(employeeDatabase);
-    MockEmployeeDataBase    mockDatabase           = new MockEmployeeDataBase();
+    MockEmployeeDataBase   mockDatabase           = new MockEmployeeDataBase();
 
     // 1. Candidate under the age 21 are not allowed
     @Test(expected = Exception.class)
@@ -25,18 +25,18 @@ public class EmployeeTestCase {
     // 2. No of employees by given department
     @Test
     public void noOfEmployeesByDept() throws Exception {
-        NoOfEmpByDeptContainer actualResult = employeeImplementation.getNoOfEmployeesByDept("ee").get();
-        NoOfEmpByDeptContainer expectedResult=mockDatabase.getActualNoOfEmpByDeptContainer().get();
-        Assert.assertEquals(expectedResult,actualResult);
+        NoOfEmpByDeptContainer actualResult   = employeeImplementation.getNoOfEmployeesByDept("ee").get();
+        NoOfEmpByDeptContainer expectedResult = mockDatabase.getActualNoOfEmpByDeptContainer().get();
+        Assert.assertEquals(expectedResult, actualResult);
     }
 
     // 3. Group employees by department
     @Test
     public void employeeGroup() throws Exception {
-     List<GroupEmployeesByDepartment> expectedResult = mockDatabase.getExpectedGroupEmpByDeptList().get();
-        List<GroupEmployeesByDepartment> actualResult = employeeImplementation.getGroupEmployeesByDept().get();
+        List<GroupEmployeesByDepartment> expectedResult = mockDatabase.getExpectedGroupEmpByDeptList().get();
+        List<GroupEmployeesByDepartment> actualResult   = employeeImplementation.getGroupEmployeesByDept().get();
 
-        Assert.assertEquals(expectedResult,actualResult);
+        Assert.assertEquals(expectedResult, actualResult);
     }
 
     // 4. Increase salary of employees
@@ -50,8 +50,8 @@ public class EmployeeTestCase {
     // 5. Promote Employees based on experience
     @Test
     public void employeesPromotion() throws Exception {
-        List<Employee> expectedResult=mockDatabase.getActualPromotedEmployee().get();
-        List<Employee> actualResult=employeeImplementation.getPromotedEmployees().get();
-        Assert.assertEquals(expectedResult,actualResult);
+        List<Employee> expectedResult = mockDatabase.getActualPromotedEmployee().get();
+        List<Employee> actualResult   = employeeImplementation.getPromotedEmployees().get();
+        Assert.assertEquals(expectedResult, actualResult);
     }
 }

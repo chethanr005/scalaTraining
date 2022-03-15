@@ -1,14 +1,14 @@
-package com.rakesh.assignment4.student;
+package com.rakesh.assignment5.student;
 
 /**
- * Created by Rakesh on Feb 25, 2022.
+ * Created by Rakesh on Mar 10, 2022.
  */
 
 public class ActivityContainer {
-    String activity;
-    public int studentCount;
+    public String activity;
+    public int    studentCount;
 
-    ActivityContainer(String activity, long studentCount) {
+    public ActivityContainer(String activity, long studentCount) {
         this.activity = activity;
         this.studentCount = (int) studentCount;
     }

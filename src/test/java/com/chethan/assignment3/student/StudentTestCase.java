@@ -3,10 +3,14 @@ package com.chethan.assignment3.student;
 /**
  * Created by Chethan on Feb 16, 2022.
  */
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 public class StudentTestCase {
@@ -22,7 +26,7 @@ public class StudentTestCase {
     //Prefix Students name with  Mr. and Ms.
     @Test
     public void prefixNameTest() {
-        List<String> studentNames = Arrays.asList( "Ms.julie", "Mr.tony", "Ms.kail","Mr.anthony","Mr.andrew","Ms.swift","Mr.cooper","Ms.hailey","Ms.rose", "Ms.kate");
+        List<String> studentNames = Arrays.asList("Ms.julie", "Mr.tony", "Ms.kail", "Mr.anthony", "Mr.andrew", "Ms.swift", "Mr.cooper", "Ms.hailey", "Ms.rose", "Ms.kate");
         List<String> prefixNames  = StudentImplementation.getPrefixStudentsName(StudentDatabase.getStudentData());
         Assert.assertEquals(studentNames, prefixNames);
     }
@@ -30,7 +34,7 @@ public class StudentTestCase {
     //No of Students according to Grade Level-1
     @Test
     public void gradeLevelTest1() {
-        GradeLevelContainer studentCount =StudentImplementation.getGradeLevel(StudentDatabase.getStudentData(), 10);
+        GradeLevelContainer studentCount = StudentImplementation.getGradeLevel(StudentDatabase.getStudentData(), 10);
         Assert.assertEquals(5, studentCount.getStudents());
     }
 
@@ -53,7 +57,7 @@ public class StudentTestCase {
         Assert.assertEquals(5, activityCount.getStudents());
     }
 
-   //No of Students participating in each type of activity-2
+    //No of Students participating in each type of activity-2
     @Test
     public void activityContainerTest2() {
         Map<String, Long> activityCount = new TreeMap<String, Long>();
@@ -70,7 +74,7 @@ public class StudentTestCase {
     //Group students based on Criteria-1
     @Test
     public void performanceContainerTest() {
-        PerformanceContainer studentCount =StudentImplementation.getPerformanceContainer(StudentDatabase.getStudentData(), "excellent");
+        PerformanceContainer studentCount = StudentImplementation.getPerformanceContainer(StudentDatabase.getStudentData(), "excellent");
         Assert.assertEquals(4, studentCount.getStudents());
     }
 

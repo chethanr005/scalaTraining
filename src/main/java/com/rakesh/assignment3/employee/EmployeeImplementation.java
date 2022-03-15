@@ -1,7 +1,6 @@
 package com.rakesh.assignment3.employee;
 
 
-import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
@@ -67,12 +66,12 @@ public class EmployeeImplementation {
 
     //5. promote employees having 8 years experience to Senior position
     public static List<PromoteEmployeeContainer> promoteEmployees(List<Employee1> employeeList) {
-       List<PromoteEmployeeContainer> result=new ArrayList<>();
+        List<PromoteEmployeeContainer> result = new ArrayList<>();
         List<Employee1> filteredEmp = employeeList.stream()
                                                   .filter(s -> Period.between(s.getJoiningDate(), LocalDate.now()).getYears() > 8).collect(Collectors.toList());
         for (Employee1 employee : filteredEmp) {
             updatePosition(employee);
-            result.add(new PromoteEmployeeContainer(employee.getEmpID(), employee.getName(),employee.getJobLevel()));
+            result.add(new PromoteEmployeeContainer(employee.getEmpID(), employee.getName(), employee.getJobLevel()));
         }
         return result;
     }
