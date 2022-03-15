@@ -46,7 +46,6 @@ public class StudentDatabase implements IStudentDatabase {
     public CompletableFuture<List<Student>> getStudentsData() {
         Supplier<List<Student>> studentList = () -> {
             getDatabaseConnection();
-
             List<Student> studentsList = new ArrayList<Student>();
 
             PreparedStatement pstmt = null;

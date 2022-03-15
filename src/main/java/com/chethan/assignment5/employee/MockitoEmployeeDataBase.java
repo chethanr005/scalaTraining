@@ -1,4 +1,6 @@
-package com.chethan.assignment4.employee;
+package com.chethan.assignment5.employee;
+
+
 
 
 import java.time.LocalDate;
@@ -18,9 +20,8 @@ import java.util.concurrent.ExecutionException;
 public class MockitoEmployeeDataBase {
     IEmployeeDatabase i = new EmployeeDatabase();
 
-    static CompletableFuture<List<Employee>> getEmployeesList() {
+    public static CompletableFuture<List<Employee>> getEmployeesList() {
         return CompletableFuture.supplyAsync(() -> Arrays.asList(
-
                 new Employee(1, "marry", "cs", 260000, "female", "2020-10-15", "2000-04-15", "junior"),
                 new Employee(2, "rose", "ee", 250000, "female", "2015-12-25", "1993-06-21", "mid"),
                 new Employee(3, "julie", "ec", 350000, "female", "2014-07-24", "1993-03-10", "mid"),
@@ -35,6 +36,11 @@ public class MockitoEmployeeDataBase {
                 new Employee(12, "mary", "cs", 260000, "female", "2021-10-15", "2000-04-15", "junior"),
                 new Employee(13, "hailey", "cs", 420000, "female", "2016-11-09", "1994-02-21", "mid")
         ));
+    }
+
+    public static CompletableFuture<Employee> getEmployee(int eid){
+        return getEmployeesList().thenApply(studentsList->{
+            return studentsList.stream().filter(student->student.getId()==eid).findAny().get();});
     }
 
     public static CompletableFuture<Employee> updateEmployeeByIdInMockito(int eid, String columnName, String value) {
@@ -73,12 +79,5 @@ public class MockitoEmployeeDataBase {
         System.out.println(employeesList);
 
         return CompletableFuture.supplyAsync(() -> employee);
-    }
-
-    public static CompletableFuture<List<Employee>> deleteMockitoEmployeeeById(int eid) throws ExecutionException, InterruptedException {
-        List<Employee> employeesList = new ArrayList<>();
-        employeesList.addAll(getEmployeesList().get());
-        employeesList.remove(eid - 1);
-        return CompletableFuture.supplyAsync(() -> employeesList);
     }
 }

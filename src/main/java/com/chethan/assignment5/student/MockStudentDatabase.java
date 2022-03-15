@@ -16,7 +16,7 @@ public class MockStudentDatabase {
 
     public CompletableFuture<List<String>> getExpectedPrefixNames() {
         return CompletableFuture.supplyAsync(() -> Arrays.asList(
-                "Ms.julie", "Mr.tony", "Ms.kail", "Mr.anthony", "Mr.andrew", "Ms.swift", "Mr.cooper", "Ms.hailey", "Ms.rose", "Ms.kate"));
+                "Ms.julie", "Mr.tony", "Ms.kail", "Mr.anthony", "Mr.andrew", "Ms.swift", "Mr.cooper", "Ms.hailey", "Ms.kate", "Ms.rose"));
     }
 
     public CompletableFuture<List<String>> getExpectedMockitoPrefixNames() {
