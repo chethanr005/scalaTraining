@@ -70,10 +70,10 @@ public class EmployeeImplementationTest {
     //5. promote employees having 8 years experience to Senior position
     @Test
     public void promotedEmployeesCheck() {
-        List<PromoteEmployeeContainer> actual=EmployeeImplementation.promoteEmployees(employeeList);
+        List<PromoteEmployeeContainer> actual = EmployeeImplementation.promoteEmployees(employeeList);
 
-        List<PromoteEmployeeContainer> expected=new ArrayList<>();
-        expected.add(new PromoteEmployeeContainer(1004,"Edwin","Senior"));
+        List<PromoteEmployeeContainer> expected = new ArrayList<>();
+        expected.add(new PromoteEmployeeContainer(1004, "Edwin", "Senior"));
 
         Assert.assertEquals(expected.toString(), actual.toString());
 

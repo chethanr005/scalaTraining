@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Function;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 
 public class EmployeeImplementation {
     static IEmployeeDataBase iEmployeeDataBaseEmployee;
-    ExecutorService threadPool = Executors.newFixedThreadPool(10);
+    static ExecutorService   threadPool = Executors.newFixedThreadPool(10);
 
     EmployeeImplementation(IEmployeeDataBase iEmployeeDataBase) {
         this.iEmployeeDataBaseEmployee = iEmployeeDataBase;
@@ -75,6 +76,7 @@ public class EmployeeImplementation {
         if (dept.isPresent()) {
             if (EmployeeDataBase.checkDepartment(department)) {
                 hikedEmployees = (employeeList) -> {
+                    //System.out.println("Employee List : "+ employeeList);
                     employeeList.stream().filter(employee -> employee.getDepartment().equals(department)).forEach(filteredEmployee -> {
                         String newSalary = String.valueOf((filteredEmployee.getSalary() + hike));
                         iEmployeeDataBaseEmployee.updateEmployeeData("Salary", newSalary, filteredEmployee.getEmpID());
@@ -99,7 +101,18 @@ public class EmployeeImplementation {
 
         Function<List<Employee>, List<Employee>> promoteJobLevel = (employeeList) -> {
             return employeeList.stream().filter(employee -> getYears(employee) >= 8 && checkJobLevel(employee))
-                               .map(employee -> promoteEmployee(employee))
+                               .map(employee -> {
+                                   Employee emp = null;
+                                   try {
+                                       emp = promoteEmployee(employee);
+                                   } catch (ExecutionException e) {
+                                       e.printStackTrace();
+                                   } catch (InterruptedException e) {
+                                       e.printStackTrace();
+                                   }
+                                   //System.out.println(emp);
+                                   return emp;
+                               })
                                .collect(Collectors.toList());
         };
         return iEmployeeDataBaseEmployee.getAllEmployee(threadPool).thenApplyAsync(promoteJobLevel, threadPool);
@@ -116,10 +129,41 @@ public class EmployeeImplementation {
         return !employee.getJobLevel().equals("Senior");
     }
 
-    private static Employee promoteEmployee(Employee employee) {
-        iEmployeeDataBaseEmployee.updateEmployeeData("JobLevel", "Senior", employee.getEmpID());
-        employee.setJobLevel("Senior");
-        return employee;
+    private static Employee promoteEmployee(Employee employee) throws ExecutionException, InterruptedException {
+        Employee emp = null;
+        if (iEmployeeDataBaseEmployee.updateEmployeeData("JobLevel", "Senior", employee.getEmpID())) {
+            emp = iEmployeeDataBaseEmployee.getEmployeeByID(1004, threadPool).get();
+            emp.setJobLevel("Senior");
+        }
+        return emp;
     }
 
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        IEmployeeDataBase      employeeDataBase = new EmployeeDataBase();
+        EmployeeImplementation implementation   = new EmployeeImplementation(employeeDataBase);
+
+
+        System.out.println("---- Employee Assignment ----");
+        System.out.println();
+
+        System.out.println("Employee Count By Department : " + implementation.employeeCountByDepartment("IT Development").get());
+        Thread.sleep(1000);
+        System.out.println();
+
+        System.out.print("Employee GroupByDept : ");
+        implementation.employeeGroupByDept().get().stream().forEach(System.out::println);
+        Thread.sleep(1000);
+        System.out.println();
+
+        System.out.println("Hike Employees : " + implementation.hikeEmployees("Administration", 0).get());
+        Thread.sleep(1000);
+        System.out.println();
+
+        System.out.println("Promote Employees : " + implementation.promoteEmployees().get());
+        Thread.sleep(1000);
+
+        if (!threadPool.isShutdown())
+            threadPool.shutdown();
+    }
 }

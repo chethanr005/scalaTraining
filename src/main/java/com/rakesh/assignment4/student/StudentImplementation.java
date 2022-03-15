@@ -1,7 +1,5 @@
 package com.rakesh.assignment4.student;
 
-import java.time.Duration;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -11,13 +9,14 @@ import java.util.concurrent.Executors;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+
 /**
  * Created by Rakesh on Feb 25, 2022.
  */
 
 public class StudentImplementation {
     IStudentDatabase iStudent;
-    ExecutorService  threadPool = Executors.newFixedThreadPool(10);
+    static ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
     StudentImplementation(IStudentDatabase iStudent) {
         this.iStudent = iStudent;
@@ -26,12 +25,14 @@ public class StudentImplementation {
     /**
      * 1. get no of male and female students , Return result in class MaleAndFemaleContainer(int males, int females)
      */
-    public CompletableFuture<MaleAndFemaleContainer> getMaleAndFemaleCount() {
+    public CompletableFuture<MaleAndFemaleContainer> getMaleAndFemaleCount() throws ExecutionException, InterruptedException {
         Function<List<Student>, MaleAndFemaleContainer> getCounts = (studentList) -> {
+            //System.out.println(" Student Implementation ;"+ studentList);
             return new MaleAndFemaleContainer(studentList.stream().filter(student -> student.getGender().equals("male")).count(),
                     studentList.stream().filter(student -> student.getGender().equals("female")).count());
         };
 
+        // System.out.println("Student Imp Get count "+iStudent.getAllStudents(threadPool).get());
         return iStudent.getAllStudents(threadPool)
                        .thenApplyAsync(getCounts, threadPool);
     }
@@ -117,10 +118,10 @@ public class StudentImplementation {
         Function<List<Student>, PerformanceContainer> getStudents = (studentList) -> {
             List<Student> filteredList;
             long          count = 0L;
-            if (level.equals("Average")) {
+            if (level.equalsIgnoreCase("Average")) {
                 filteredList = studentList.stream().filter(s -> s.getGpa() >= 4.1 && s.getGpa() <= 7.1).collect(Collectors.toList());
                 return new PerformanceContainer(level, filteredList);
-            } else if (level.equals("Excellent")) {
+            } else if (level.equalsIgnoreCase("Excellent")) {
                 filteredList = studentList.stream().filter(s -> s.getGpa() > 7.1).collect(Collectors.toList());
                 return new PerformanceContainer(level, filteredList);
             } else {
@@ -146,13 +147,64 @@ public class StudentImplementation {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        IStudentDatabase      i     = new StudentDatabase();
-        StudentImplementation si    = new StudentImplementation(i);
-        LocalTime             start = LocalTime.now();
-//        for(int j=0;j<10;j++)
-//        System.out.println(si.getActivityCountList());
+        IStudentDatabase      database       = new StudentDatabase();
+        StudentImplementation implementation = new StudentImplementation(database);
+        System.out.println("---- Student Assignment ----");
+        System.out.println();
 
-        si.threadPool.shutdown();
-        System.out.println("TIme taken to complete " + Duration.between(start, LocalTime.now()).toMillis());
+        System.out.println(" 1. get no of male and female students ");
+        System.out.println();
+        System.out.println("Male Count : " + implementation.getMaleAndFemaleCount().get().maleCount);
+        System.out.println("Female Count : " + implementation.getMaleAndFemaleCount().get().femaleCount);
+        System.out.println();
+        Thread.sleep(1000);
+
+        System.out.println();
+
+        System.out.println("2. Add Prefix to each student's name ,  Mr. or Ms. and return ");
+        System.out.println();
+        System.out.println("Add Prefix to name : " + implementation.addPrefixToName().get());
+        System.out.println();
+        Thread.sleep(1000);
+        System.out.println();
+
+        System.out.println("3. get no of students according to Grade level , Return result in class GradeLevelContainer(int gradeLevel, int students) ");
+        System.out.println();
+        System.out.println("Count based all GradeLevel : ");
+        implementation.getCountOfAllGradeLevel().get().stream().forEach(System.out::println);
+        System.out.println();
+        Thread.sleep(1000);
+
+        System.out.println("Count based on  GradeLevel - 1 : " + implementation.getCountBasedOnGradeLevel(1).get());
+        System.out.println();
+        Thread.sleep(1000);
+        System.out.println();
+
+        System.out.println("4. get no of students participating in each type of activity , Return result in class ActivityContainer(String activity, int students) ");
+        System.out.println();
+        System.out.println("Count based on Activity-'cricket' : " + implementation.getCountBasedOnActivity("cricket").get());
+        System.out.println();
+        Thread.sleep(1000);
+
+        System.out.println("All Activity count list : ");
+        implementation.getActivityCountList().get().stream().forEach(System.out::println);
+        System.out.println();
+        Thread.sleep(1000);
+
+        System.out.println();
+        System.out.println("5. group students based on GPA with below criteria, Return result in class PerformanceContainer(String level, List<Student> students) ");
+        System.out.println();
+        System.out.println("Students By Level-'poor' : ");
+        System.out.println(implementation.getStudentsByLevel("Poor").get());
+        System.out.println();
+        Thread.sleep(1000);
+
+        System.out.println("All Students by Level");
+        implementation.getAllStudentsByLevel().get().stream().forEach(System.out::println);
+        Thread.sleep(500);
+
+        if (!threadPool.isShutdown()) {
+            threadPool.shutdown();
+        }
     }
 }

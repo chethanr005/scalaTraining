@@ -1,10 +1,8 @@
 package com.rakesh.assignment3.employee;
 
-import java.util.Map;
-
 public class PromoteEmployeeContainer {
 
-    public int empID;
+    public int    empID;
     public String empName;
     public String position;
 

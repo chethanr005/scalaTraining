@@ -1,9 +1,13 @@
-package com.rakesh.assignment4.employee;
+package com.rakesh.assignment5.employee;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
- * Created by Rakesh on Feb 25, 2022.
+ * Created by Rakesh on Mar 14, 2022.
  */
 
 public class Employee {
@@ -16,14 +20,17 @@ public class Employee {
     private LocalDate dob;
     private String    jobLevel;
 
-    public Employee(int empID, String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
+    @JsonCreator
+    public Employee(@JsonProperty("empID") int empID, @JsonProperty("name") String name, @JsonProperty("department") String department, @JsonProperty("salary") double salary
+            , @JsonProperty("gender") String gender, @JsonProperty("joiningDate") String joiningDate, @JsonProperty("dob") String dob, @JsonProperty("jobLevel") String jobLevel) {
         this.empID = empID;
         this.name = name;
         this.department = department;
         this.salary = salary;
         this.gender = gender;
-        this.joiningDate = joiningDate;
-        this.dob = dob;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.joiningDate = LocalDate.parse(joiningDate, dtf);
+        this.dob = LocalDate.parse(dob, dtf);
         this.jobLevel = jobLevel;
     }
 
@@ -103,9 +110,9 @@ public class Employee {
 
     public boolean equals(Object obj) {
         Employee check = (Employee) obj;
-        return this.empID == check.getEmpID() && this.name.equals(check.name)
-                && this.department.equals(check.department) && this.salary == check.salary
-                && this.gender.equals(check.gender) && this.joiningDate.equals(check.joiningDate)
-                && this.dob.equals(check.dob) && this.jobLevel.equals(check.jobLevel);
+        return this.empID == check.getEmpID() && this.name.equals(check.getName())
+                && this.department.equals(check.getDepartment()) && this.salary == check.getSalary()
+                && this.gender.equals(check.getGender()) && this.joiningDate.equals(check.getJoiningDate())
+                && this.dob.equals(check.getDob()) && this.jobLevel.equals(check.getJobLevel());
     }
 }
