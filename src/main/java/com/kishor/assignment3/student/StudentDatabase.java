@@ -137,7 +137,7 @@ public class StudentDatabase {
 
     public static void main(String[] args) throws SQLException {
         //getAllStudents().stream().forEach(System.out::println);
-       // System.out.println(getStudentById(1001));
+        // System.out.println(getStudentById(1001));
 //        System.out.println(getActivities(1001));
         //System.out.println(updateValueThroughRegNo("Name","'Alex'", 1001));
         //System.out.println(insertNewRecord(new Student(1007,"Ashok1", 3, 6.9, "male", Arrays.asList("swimming", "basketball", "volleyball"))));
