@@ -104,7 +104,6 @@ public class EmployeeDatabase implements IEmployeeDatabase {
 
         Supplier<Employee> employeeSupplier = () -> {
             getDatabaseConnection();
-
             Employee          employee = null;
             PreparedStatement pstmt    = null;
             ResultSet         rs       = null;

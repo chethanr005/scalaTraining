@@ -25,11 +25,12 @@ import static akka.http.javadsl.server.PathMatchers.segment;
  */
 
 class HttpServer extends AllDirectives {
-    private IStudentDatabase      database              = new StudentDatabase();
-    private StudentImplementation studentImplementation = new StudentImplementation(database);
+    private IStudentDatabase      database;
+    private StudentImplementation studentImplementation;
 
     HttpServer(IStudentDatabase database) {
         this.database = database;
+        this.studentImplementation=new StudentImplementation(database);
     }
 
     public static void main(String[] args) throws Exception {
@@ -51,12 +52,12 @@ class HttpServer extends AllDirectives {
     }
 
 
-    private Route createRoute() {
+     Route createRoute() {
         return
                 concat(
                         path("student", () ->
                                 get(() ->
-                                        complete("  Welcome to Student Database "))),
+                                        complete("  Welcome to Student Database  "))),
 
                         pathPrefix("student", () -> path("maleAndFemaleContainer", () -> {
                             return get(() -> {
@@ -139,7 +140,7 @@ class HttpServer extends AllDirectives {
                         })),
 
                         pathPrefix("student", () ->
-                                pathPrefix("PerformanceContainer", () -> path(segment(), (String performance) -> {
+                                pathPrefix("performanceContainer", () -> path(segment(), (String performance) -> {
                                     return get(() -> {
                                         CompletionStage<Optional<PerformanceContainer>> PerformanceContainer = null;
                                         try {
@@ -152,7 +153,7 @@ class HttpServer extends AllDirectives {
                                     });
                                 }))),
 
-                        pathPrefix("student", () -> path("PerformanceContainer2", () -> {
+                        pathPrefix("student", () -> path("performanceContainer2", () -> {
                             return get(() -> {
                                 CompletionStage<Optional<List<PerformanceContainer>>> PerformanceContainer = null;
                                 try {

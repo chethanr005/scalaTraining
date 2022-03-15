@@ -26,11 +26,12 @@ import static akka.http.javadsl.server.PathMatchers.segment;
  */
 
 class HttpServer extends AllDirectives {
-    private IEmployeeDatabase      database              = new EmployeeDatabase();
-    private EmployeeImplementation employeeImplementation = new EmployeeImplementation(database);
+    private IEmployeeDatabase      database             ;
+    private EmployeeImplementation employeeImplementation ;
 
     HttpServer(IEmployeeDatabase database) {
         this.database = database;
+        this.employeeImplementation = new EmployeeImplementation(database);
     }
 
     public static void main(String[] args) throws Exception {
@@ -38,17 +39,17 @@ class HttpServer extends AllDirectives {
         final Http                           http    = Http.get(system);
         HttpServer                           app     = new HttpServer(new EmployeeDatabase());
         final CompletionStage<ServerBinding> binding = http.newServerAt("localhost", 8008).bind(app.createRoute());
-        System.out.println("Server online at http://localhost:8888/\nPress RETURN to stop...");
+        System.out.println("Server online at http://localhost:8008/\nPress RETURN to stop...");
         System.in.read();
         binding.thenCompose(ServerBinding::unbind).thenAccept(unbound -> system.terminate());
     }
 
-    private Route createRoute() {
+     Route createRoute() {
         return
                 concat(
                         path("employee", () ->
                                 get(() ->
-                                        complete("  Welcome to employee Database "))),
+                                        complete("  Welcome to Employee Database  "))),
 
 
                         pathPrefix("employee", () ->
