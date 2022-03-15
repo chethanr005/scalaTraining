@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
  */
 
 public class StudentImplementation {
-    private static IStudentDatabase studentDatabase;
+    private  IStudentDatabase studentDatabase;
     ExecutorService threadPool = Executors.newCachedThreadPool();
 
     StudentImplementation(IStudentDatabase studentDatabase) {
-        StudentImplementation.studentDatabase = studentDatabase;
+        this.studentDatabase = studentDatabase;
     }
 
     // 1. No of male and female student implementation
