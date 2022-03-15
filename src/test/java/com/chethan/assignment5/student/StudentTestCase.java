@@ -1,4 +1,5 @@
-package com.chethan.assignment4.student;
+package com.chethan.assignment5.student;
+
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -7,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Created by Chethan on Feb 24, 2022.
+ * Created by Chethan on Mar 14, 2022.
  */
 
 public class StudentTestCase {
@@ -22,7 +23,7 @@ public class StudentTestCase {
         MaleAndFemaleContainer actualResult   = studentImplementation.getMaleAndFemaleContainer().get();
         MaleAndFemaleContainer expectedResult = mockData.getExpectedMaleAndFemaleContainer().get();
 
-        Assert.assertEquals(actualResult, expectedResult);
+        Assert.assertEquals(expectedResult,actualResult);
 
     }
 
