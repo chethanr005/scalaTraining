@@ -112,7 +112,7 @@ public class EmployeeDataBase implements IEmployeeDataBase {
             isAdded = rst.next();
         } catch (Exception e) {
         }
-        ;
+
         closeConnection();
         return isAdded;
     }

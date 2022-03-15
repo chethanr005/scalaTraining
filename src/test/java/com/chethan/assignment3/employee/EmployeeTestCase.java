@@ -5,10 +5,6 @@ package com.chethan.assignment3.employee;
  */
 
 
-import org.junit.Assert;
-import org.junit.Test;
-import java.util.*;
-
 public class EmployeeTestCase {
 
 //    // Candidate under the age 21 are not allowed
