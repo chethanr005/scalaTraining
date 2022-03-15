@@ -1,4 +1,4 @@
-package com.chethan.assignment4.employee;
+package com.chethan.assignment5.employee;
 
 
 import org.junit.Assert;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by Chethan on Feb 25, 2022.
+ * Created by Chethan on Mar 14, 2022.
  */
 
 public class EmployeeTestCase {
@@ -42,8 +42,8 @@ public class EmployeeTestCase {
     // 4. Increase salary of employees
     @Test
     public void salIncrease() throws Exception {
-        List<Employee> expectedResult=mockDatabase.getExpectedIncreasedSalaryEmployeesList().get();
-        List<Employee> actualResult=employeeImplementation.getIncreasedSalaryEmployees(Optional.ofNullable("ec"),Optional.ofNullable(15.0)).get();
+        List<Employee> expectedResult = mockDatabase.getExpectedIncreasedSalaryEmployeesList().get();
+        List<Employee> actualResult   = employeeImplementation.getIncreasedSalaryEmployees(Optional.ofNullable("ec"), Optional.ofNullable(15.0)).get();
         Assert.assertEquals(expectedResult, actualResult);
     }
 

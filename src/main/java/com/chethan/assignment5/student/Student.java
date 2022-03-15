@@ -1,24 +1,31 @@
-package com.chethan.assignment4.student;
+package com.chethan.assignment5.student;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * Created by Chethan on Feb 24, 2022.
+ * Created by Chethan on Mar 11, 2022.
  */
 
 public class Student {
+    private final String       id;
+    private       String       name;
+    private       double       gpa;
+    private       String       gender;
+    private       int          gradeLevel;
+    private       List<String> activities = new ArrayList<String>();
 
-    private final String id;
-    private       String name;
-    private double       gpa;
-    private String       gender;
-    private int          gradeLevel;
-    private List<String> activities = new ArrayList<String>();
-
-
-    Student(String id, String name, double gpa, String gender, int gradeLevel, List<String> activities) {
+    @JsonCreator
+    Student(@JsonProperty("id") String id,
+            @JsonProperty("name") String name,
+            @JsonProperty("gpa") double gpa,
+            @JsonProperty("gender") String gender,
+            @JsonProperty("gradeLevel") int gradeLevel,
+            @JsonProperty("activities") List<String> activities) {
         this.id = id;
         this.name = name;
         this.gpa = gpa;
