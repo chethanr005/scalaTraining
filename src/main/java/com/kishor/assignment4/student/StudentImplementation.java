@@ -90,10 +90,14 @@ public class StudentImplementation {
         StudentDatabase       d    = new StudentDatabase();
         StudentImplementation s    = new StudentImplementation(d);
         StudentMockDatabase   mock = new StudentMockDatabase();
-//        System.out.println(s.maleAndFemaleCount().get().getmales());
-        //System.out.println(s.addPrefixToStudents().get());
-        //System.out.println(s.getAllGradeLevel().get());
-        //System.out.println(s.getNoOfStudentsBelongsToEachActivities().get());
+        System.out.println("1.1 Males Count     : " + s.maleAndFemaleCount().get().getmales());
+        System.out.println("1.2 Females Count     : " + s.maleAndFemaleCount().get().getmales() + "\n\n");
+        System.out.println("2. Student Names with Prefix     : " + s.addPrefixToStudents().get() + "\n\n");
+        System.out.println("3. All Grade Level's     :");
+        s.getAllGradeLevel().get().stream().forEach(System.out::println);
+        System.out.println("\n\n4. No of Student's belonging to particular Activity     :");
+        s.getNoOfStudentsBelongsToEachActivities().get().stream().forEach(System.out::println);
+        System.out.println("\n\n5. All Student's Performance     :");
         s.getPerformanceOfStudents().get().stream().forEach(System.out::println);
     }
 

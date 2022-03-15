@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Supplier;
@@ -133,7 +132,7 @@ public class EmployeeDatabase implements IEmployee {
             else if (columnName == "DOB" && Period.between(LocalDate.parse(value, d1), LocalDate.now()).getYears() > 21)
                 stmt.executeUpdate(qry);
             else
-                throw new Exception();
+                throw new RuntimeException();
         } catch (Exception e) {
             System.out.println("Age or Joining date is not proper!");
         }
@@ -147,14 +146,14 @@ public class EmployeeDatabase implements IEmployee {
         String qry = "insert into public.\"EmployeeDataBase\" values (" + employee.getEmpId() + ",'" + employee.getName() + "','" + employee.getDepartment() + "'," + employee.getSalary() + ",'" + employee.getGender() +
                 "','" + employee.getJoiningDate().toString() + "','" + employee.getDob().toString() + "','" + employee.getJobLevel() + "')";
         int age = Period.between(employee.getDob(), LocalDate.now()).getYears();
-        try {
-            if (age > 21 && !Period.between(employee.getJoiningDate(), LocalDate.now()).isNegative())
+        if (age > 21 && !Period.between(employee.getJoiningDate(), LocalDate.now()).isNegative()) {
+            try {
                 stmt.executeUpdate(qry);
-            else
-                throw new Exception();
-        } catch (Exception e) {
-            System.out.println("Age or Joining date is not proper!");
-        }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else
+            throw new RuntimeException("Employee under age");
         closeConnection();
         return getEmployeeById(employee.getEmpId());
     }
@@ -168,9 +167,12 @@ public class EmployeeDatabase implements IEmployee {
         return getAllEmployees();
     }
 
-    public static void main(String[] args) throws SQLException, ExecutionException, InterruptedException {
+    public static void main(String[] args) throws Exception {
         EmployeeDatabase e = new EmployeeDatabase();
-        e.getAllEmployees().get().stream().forEach(System.out::println);
+        //e.getAllEmployees().get().stream().forEach(System.out::println);
+        System.out.println(e.updateValueThroughEmpId("JobLevel", "Junior", 2).get());
+        System.out.println(e.getEmployeeById(1).get());
+
     }
 
 }

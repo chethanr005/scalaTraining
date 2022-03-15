@@ -1,7 +1,6 @@
 package com.kishor.assignment1.employee;
 
 import com.kishor.assignment3.employee.EmployeeDatabase;
-import com.kishor.assignment3.student.StudentDatabase;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -32,23 +31,23 @@ public class EmployeeImplementation {
 
     public static List<GroupByDepartmentContainer> grpByDept(List<Employee> employees) {
         return employees.stream().map(employee -> employee.getDepartment()).distinct().collect(toList()).stream()
-                            .map(department -> {
-                                return new GroupByDepartmentContainer(employees.stream()
-                                                                               .filter(employee1 -> employee1.getDepartment().equals(department))
-                                                                               .map(employee2 -> employee2.getName()).collect(toList()), department);
-                            })
-                            .collect(toList());
+                        .map(department -> {
+                            return new GroupByDepartmentContainer(employees.stream()
+                                                                           .filter(employee1 -> employee1.getDepartment().equals(department))
+                                                                           .map(employee2 -> employee2.getName()).collect(toList()), department);
+                        })
+                        .collect(toList());
     }
 
     public static List<IncreaseSalaryContainer> increaseSalaryForDept(List<Employee> employees, String department, double hike) throws SQLException {
         return employees.stream().filter(employee -> employee.getDepartment().equals(department)).collect(toList())
                         .stream().map(employee -> {
                     double increasedSalary = employee.getSalary() + hike;
-                        try {
-                            EmployeeDatabase.updateValueThroughEmpId("Salary", String.valueOf(increasedSalary), employee.getEmpId());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        EmployeeDatabase.updateValueThroughEmpId("Salary", String.valueOf(increasedSalary), employee.getEmpId());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     return new IncreaseSalaryContainer(employee.getName(), increasedSalary);
                 }).collect(toList());
     }
@@ -67,7 +66,7 @@ public class EmployeeImplementation {
     }
 
     public static void main(String[] args) throws SQLException {
-  List<Employee> e = EmployeeDatabase.getAllEmployees();
+        List<Employee> e = EmployeeDatabase.getAllEmployees();
         //System.out.println(increaseSalaryForDept(e,"IT Development",5000l));
         System.out.println(grpByDept(e));
     }

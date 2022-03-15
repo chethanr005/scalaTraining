@@ -48,13 +48,14 @@ public class StudentMockDatabase {
         ArrayList<ActivityContainer> allActivities = new ArrayList<>();
         allActivities.add(new ActivityContainer("Painting", 2l));
         allActivities.add(new ActivityContainer("Swimming", 4l));
-        allActivities.add(new ActivityContainer("Gymnastics", 2l));
-        allActivities.add(new ActivityContainer("Soccer", 2l));
-        allActivities.add(new ActivityContainer("Basketball", 1l));
+        allActivities.add(new ActivityContainer("Basketball", 2l));
+        allActivities.add(new ActivityContainer("Volleyball", 1l));
         allActivities.add(new ActivityContainer("Baseball", 1l));
         allActivities.add(new ActivityContainer("Football", 2l));
         allActivities.add(new ActivityContainer("Running", 1l));
+        allActivities.add(new ActivityContainer("Soccer", 1l));
         allActivities.add(new ActivityContainer("Dancing", 1l));
+        allActivities.add(new ActivityContainer("Gymnastics", 1l));
         allActivities.add(new ActivityContainer("Aerobics", 1l));
         return CompletableFuture.supplyAsync(() -> {
             return allActivities;
@@ -66,7 +67,7 @@ public class StudentMockDatabase {
         allPerformance.add(new PerformanceContainer("poor", Arrays.asList(new Student(1004, "James", 4, 3.9, "male", Arrays.asList("Swimming", "Basketball", "Baseball", "Football")))));
         allPerformance.add(new PerformanceContainer("average", Arrays.asList(
                 new Student(1001, "Alex", 2, 4.6, "male", Arrays.asList("Painting")),
-                new Student(1003, "Mahesh", 3, 5.9, "male", Arrays.asList("Swimming", "Gymnastics", "Soccer")),
+                new Student(1003, "Mahesh", 3, 5.9, "male", Arrays.asList("Swimming", "Basketball", "Volleyball")),
                 new Student(1011, "Kenny", 5, 5.6, "male", Arrays.asList("Painting", "Running", "Soccer")),
                 new Student(1048, "Emma", 3, 6.0, "female", Arrays.asList("Swimming", "Gymnastics", "Aerobics"))
         )));
