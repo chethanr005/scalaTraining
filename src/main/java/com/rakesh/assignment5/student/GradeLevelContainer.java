@@ -1,17 +1,19 @@
-package com.rakesh.assignment4.student;
+package com.rakesh.assignment5.student;
 
 /**
- * Created by Rakesh on Feb 25, 2022.
+ * Created by Rakesh on Mar 10, 2022.
  */
 
 public class GradeLevelContainer {
     public int gradeLevel;
     public int studentsCount;
 
-    GradeLevelContainer(int gradeLevel, long studentsCount) {
+
+    public GradeLevelContainer(int gradeLevel, long count) {
         this.gradeLevel = gradeLevel;
-        this.studentsCount = (int) studentsCount;
+        this.studentsCount = (int) count;
     }
+
 
     @Override
     public boolean equals(Object o) {

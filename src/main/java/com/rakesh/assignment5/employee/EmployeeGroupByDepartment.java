@@ -1,16 +1,20 @@
-package com.rakesh.assignment4.employee;
+package com.rakesh.assignment5.employee;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 /**
- * Created by Rakesh on Feb 25, 2022.
+ * Created by Rakesh on Mar 14, 2022.
  */
 
 public class EmployeeGroupByDepartment {
-    String         department;
-    List<Employee> employeeList;
+    public String         department;
+    public List<Employee> employeeList;
 
-    public EmployeeGroupByDepartment(String department, List<Employee> employeeList) {
+    @JsonCreator
+    public EmployeeGroupByDepartment(@JsonProperty String department, @JsonProperty List<Employee> employeeList) {
         this.department = department;
         this.employeeList = employeeList;
     }
@@ -28,5 +32,4 @@ public class EmployeeGroupByDepartment {
         EmployeeGroupByDepartment check = (EmployeeGroupByDepartment) object;
         return this.department.equals(check.department) && this.employeeList.equals(check.employeeList);
     }
-
 }

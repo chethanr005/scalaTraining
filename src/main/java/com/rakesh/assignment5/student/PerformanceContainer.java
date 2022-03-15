@@ -1,14 +1,14 @@
-package com.rakesh.assignment4.student;
+package com.rakesh.assignment5.student;
 
 import java.util.List;
 
 /**
- * Created by Rakesh on Feb 25, 2022.
+ * Created by Rakesh on Mar 10, 2022.
  */
 
 public class PerformanceContainer {
-    String        level;
-    List<Student> studentList;
+    public String        level;
+    public List<Student> studentList;
 
     public PerformanceContainer(String level, List<Student> studentList) {
         this.level = level;
