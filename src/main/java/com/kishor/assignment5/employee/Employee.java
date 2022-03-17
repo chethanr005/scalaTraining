@@ -1,30 +1,38 @@
-package com.kishor.assignment4.employee;
+package com.kishor.assignment5.employee;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
- * Created by Kishor on Feb 28, 2022.
+ * Created by Kishor on Mar 11, 2022.
  */
 
 public class Employee {
-    private int       empId;
-    private String    name;
-    private String    department;
-    private double    salary;
-    private String    gender;
-    private LocalDate joiningDate;
-    private LocalDate dob; // date of birth
-    private String    jobLevel;
+    public int       empId;
+    public String    name;
+    public String    department;
+    public double    salary;
+    public String    gender;
+    public LocalDate joiningDate;
+    public LocalDate dob; // date of birth
+    public String    jobLevel;
 
-    public Employee(int empId, String name, String department, double salary, String gender, LocalDate joiningDate, LocalDate dob, String jobLevel) {
+
+    @JsonCreator
+    public Employee(@JsonProperty("EmpId") int empId, @JsonProperty("Name") String name, @JsonProperty("Department") String department, @JsonProperty("Salary") double salary, @JsonProperty("Gender") String gender,
+                    @JsonProperty("JoiningDate") String joiningDate, @JsonProperty("Dob") String dob, @JsonProperty("JobLevel") String jobLevel) {
         this.empId = empId;
         this.name = name;
         this.department = department;
         this.salary = salary;
         this.gender = gender;
-        this.joiningDate = joiningDate;
-        this.dob = dob;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.joiningDate = LocalDate.parse(joiningDate, formatter);
+        this.dob = LocalDate.parse(dob, formatter);
         this.jobLevel = jobLevel;
     }
 
@@ -93,12 +101,12 @@ public class Employee {
         return "Employee{" +
                 "EmpId = " + empId +
                 ", Name= '" + name + '\'' +
-                ", Department= " + department +
+                ", Department= '" + department + '\'' +
                 ", Salary= " + salary +
                 ", Gender='" + gender + '\'' +
-                ", JoiningDate= " + joiningDate +
-                ", Dob= " + dob +
-                ", JobLevel= " + jobLevel +
+                ", JoiningDate= '" + joiningDate + '\'' +
+                ", Dob= '" + dob + '\'' +
+                ", JobLevel= '" + jobLevel + '\'' +
                 '}';
     }
 
@@ -110,8 +118,4 @@ public class Employee {
         return empId == employee.empId && Double.compare(employee.salary, salary) == 0 && Objects.equals(name, employee.name) && Objects.equals(department, employee.department) && Objects.equals(gender, employee.gender) && Objects.equals(joiningDate, employee.joiningDate) && Objects.equals(dob, employee.dob) && Objects.equals(jobLevel, employee.jobLevel);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(empId, name, department, salary, gender, joiningDate, dob, jobLevel);
-    }
 }
