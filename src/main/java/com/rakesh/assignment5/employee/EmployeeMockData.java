@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class EmployeeMockData {
     public static List<Employee> employeeData=new ArrayList<>();
     public CompletableFuture<List<Employee>> getAllEmployees() {
-        Employee emp1 = new Employee(1001, "John", "IT Development", 35000.0, "male", "2021-08-11", "1998-05-12", "Junior");
-        Employee emp2 = new Employee(1002, "Sunil", "IT Development", 35000.0, "male", "2020-08-11", "1997-04-20", "Junior");
-        Employee emp3 = new Employee(1003, "Rohit", "Business Analysis", 45000.0, "male", "2020-08-11", "1995-08-17", "Mid-Term");
-        Employee emp4 = new Employee(1004, "Edwin", "Administration", 55000.0, "male", "2010-08-11", "1994-02-21", "Junior");
+        Employee emp1 = new Employee(1001, "John", "IT Development", 35000.0, "male", LocalDate.of(2021, 8, 11), LocalDate.of(1998, 5, 12), "Junior");
+        Employee emp2 = new Employee(1002, "Sunil", "IT Development", 35000.0, "male", LocalDate.of(2020, 8, 11), LocalDate.of(1997, 4, 20), "Junior");
+        Employee emp3 = new Employee(1003, "Rohit", "Business Analysis", 45000.0, "male", LocalDate.of(2020, 8, 11), LocalDate.of(1995, 8, 17), "Mid-Term");
+        Employee emp4 = new Employee(1004, "Edwin", "Administration", 55000.0, "male", LocalDate.of(2010, 8, 11), LocalDate.of(1994, 2, 21), "Junior");
 
         return CompletableFuture.supplyAsync(() -> {
             return Arrays.asList(emp1, emp2, emp3, emp4);
