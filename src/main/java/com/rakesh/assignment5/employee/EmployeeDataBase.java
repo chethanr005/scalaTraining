@@ -53,7 +53,7 @@ public class EmployeeDataBase implements IEmployeeDataBase {
                 while (rst.next()) {
                     LocalDate joiningDate = LocalDate.parse(rst.getString("JoingDate"));
                     LocalDate dob         = LocalDate.parse(rst.getString("DOB"));
-                    result.add(new Employee(rst.getInt("EmpID"), rst.getString("Name"), rst.getString("Department"), rst.getDouble("Salary"), rst.getString("Gender"), rst.getString("JoingDate"), rst.getString("DOB"), rst.getString("JobLevel")));
+                    result.add(new Employee(rst.getInt("EmpID"), rst.getString("Name"), rst.getString("Department"), rst.getDouble("Salary"), rst.getString("Gender"), joiningDate, dob, rst.getString("JobLevel")));
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -74,7 +74,7 @@ public class EmployeeDataBase implements IEmployeeDataBase {
                 if (rst.next()) {
                     LocalDate joiningDate = LocalDate.parse(rst.getString("JoingDate"));
                     LocalDate dob         = LocalDate.parse(rst.getString("DOB"));
-                    result = new Employee(rst.getInt("EmpID"), rst.getString("Name"), rst.getString("Department"), rst.getDouble("Salary"), rst.getString("Gender"), rst.getString("JoingDate"), rst.getString("DOB"), rst.getString("JobLevel"));
+                    result = new Employee(rst.getInt("EmpID"), rst.getString("Name"), rst.getString("Department"), rst.getDouble("Salary"), rst.getString("Gender"), joiningDate, dob, rst.getString("JobLevel"));
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());

@@ -42,8 +42,8 @@ public class EmployeeTestCase {
     // 4. Increase salary of employees
     @Test
     public void salIncrease() throws Exception {
-        List<Employee> expectedResult=mockDatabase.getExpectedIncreasedSalaryEmployeesList().get();
-        List<Employee> actualResult=employeeImplementation.getIncreasedSalaryEmployees(Optional.ofNullable("ec"),Optional.ofNullable(15.0)).get();
+        List<Employee> expectedResult = mockDatabase.getExpectedIncreasedSalaryEmployessList().get();
+        List<Employee> actualResult   = employeeImplementation.getIncreasedSalaryEmployees(Optional.ofNullable("ec"), Optional.ofNullable(15.0)).get();
         Assert.assertEquals(expectedResult, actualResult);
     }
 

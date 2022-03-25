@@ -117,7 +117,7 @@ public class StudentImplementationTest extends JUnitRouteTest {
     {
      //for valid student detail
         String mockStd="{\"activities\":[\"painting\",\"chess\",\"soccer\"],\"gender\":\"male\",\"gpa\":8.9,\"gradeLevel\":10,\"name\":\"Edwin\",\"regNo\":1012}";
-        Mockito.when(iStudentDatabase.addNewStudent(Mockito.anyObject())).thenReturn(true);
+        Mockito.when(iStudentDatabase.addNewStudent(Mockito.any(Student.class))).thenReturn(true);
         appRoute.run(HttpRequest.POST("/student/addStudent").withEntity(HttpEntities.create(ContentTypes.APPLICATION_JSON,mockStd))).assertStatusCode(200).assertEntity("OK");
     }
 }

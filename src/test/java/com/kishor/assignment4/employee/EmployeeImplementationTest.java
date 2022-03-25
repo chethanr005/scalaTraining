@@ -15,7 +15,6 @@ import java.util.concurrent.ExecutionException;
 
 public class EmployeeImplementationTest extends TestCase {
     EmployeeMockDatabase   mockDatabase           = new EmployeeMockDatabase();
-    //IEmployee              database               = new EmployeeDatabase();
     IEmployee              database               = Mockito.mock(EmployeeDatabase.class);
     EmployeeImplementation employeeImplementation = new EmployeeImplementation(database);
     EmployeeMockitoDB      employeeMockitoDB      = new EmployeeMockitoDB();

@@ -9,8 +9,10 @@ import akka.http.javadsl.testkit.TestRoute;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.time.LocalDate;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 
 /**
  * Created by Rakesh on Mar 14, 2022.
@@ -33,7 +35,7 @@ public class EmployeeImplementationTest extends JUnitRouteTest {
     //get Employee by ID
     @Test
     public void getEmployeeByID() {
-        Employee emp = new Employee(1001, "John", "IT Development", 35000.0, "male", "2021-08-11", "1998-05-12", "Junior");
+        Employee emp = new Employee(1001, "John", "IT Development", 35000.0, "male", LocalDate.of(2021,8,11),LocalDate.of(1998,5,12), "Junior");
         Mockito.when(iEmployeeDataBase.getEmployeeByID(Mockito.anyInt(), Mockito.anyObject())).thenReturn(CompletableFuture.completedFuture(emp));
         appRoute.run(HttpRequest.GET("/employee/getEmployeeByID/1001")).assertStatusCode(200).assertEntity(expected.getByID());
     }
@@ -74,7 +76,7 @@ public class EmployeeImplementationTest extends JUnitRouteTest {
     //to get Hiked employee
     @Test
     public void hikedEmployee() {
-        Mockito.when(iEmployeeDataBase.getAllEmployee(Mockito.anyObject())).thenReturn(mockData.getAllEmployees());
+        Mockito.when(iEmployeeDataBase.getAllEmployee(Mockito.any(ExecutorService.class))).thenReturn(mockData.getAllEmployees());
         appRoute.run(HttpRequest.PUT("/employee/hikeEmployeeByDept?dept=Administration&hike=0.0")).assertStatusCode(200).assertEntity(expected.hikedEmployee());
     }
 
@@ -130,7 +132,7 @@ public class EmployeeImplementationTest extends JUnitRouteTest {
                 "    \"name\": \"John\"," +
                 "    \"salary\": 45000.0" +
                 "}";
-        Mockito.when(iEmployeeDataBase.addNewEmployee(Mockito.anyObject())).thenReturn(false);
+        Mockito.when(iEmployeeDataBase.addNewEmployee(Mockito.any(Employee.class))).thenReturn(false);
         appRoute.run(HttpRequest.POST("/employee/addEmployee").withEntity(HttpEntities.create(ContentTypes.APPLICATION_JSON,data1))).assertEntity("The request contains bad syntax or cannot be fulfilled.").assertStatusCode(400);
     }
 }
