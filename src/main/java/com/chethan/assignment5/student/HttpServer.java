@@ -228,7 +228,7 @@ class HttpServer extends AllDirectives {
                                     return delete(() -> {
                                         database.deleteStudentsById(sid);
                                         CompletionStage<Optional<Done>> deleted = CompletableFuture.completedFuture(Optional.of(Done.getInstance()));
-                                        return onSuccess(deleted, deleteSuccess -> complete(StatusCodes.NOT_FOUND, "Student details successfully deleted"));
+                                        return onSuccess(deleted, deleteSuccess -> complete(StatusCodes.OK, "Student details successfully deleted"));
                                     });
                                 }))));
     }
