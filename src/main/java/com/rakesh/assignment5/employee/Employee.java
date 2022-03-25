@@ -2,9 +2,10 @@ package com.rakesh.assignment5.employee;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Created by Rakesh on Mar 14, 2022.
@@ -16,21 +17,24 @@ public class Employee {
     private String    department;
     private double    salary;
     private String    gender;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate joiningDate;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate dob;
     private String    jobLevel;
 
     @JsonCreator
     public Employee(@JsonProperty("empID") int empID, @JsonProperty("name") String name, @JsonProperty("department") String department, @JsonProperty("salary") double salary
-            , @JsonProperty("gender") String gender, @JsonProperty("joiningDate") String joiningDate, @JsonProperty("dob") String dob, @JsonProperty("jobLevel") String jobLevel) {
+            , @JsonProperty("gender") String gender, @JsonProperty("joiningDate") LocalDate joiningDate, @JsonProperty("dob") LocalDate dob, @JsonProperty("jobLevel") String jobLevel) {
         this.empID = empID;
         this.name = name;
         this.department = department;
         this.salary = salary;
         this.gender = gender;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        this.joiningDate = LocalDate.parse(joiningDate, dtf);
-        this.dob = LocalDate.parse(dob, dtf);
+        this.joiningDate=joiningDate;
+        this.dob =dob;
         this.jobLevel = jobLevel;
     }
 
