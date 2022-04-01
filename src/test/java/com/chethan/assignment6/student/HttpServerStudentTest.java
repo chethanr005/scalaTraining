@@ -14,8 +14,6 @@ import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
-import static akka.http.javadsl.server.Directives.complete;
-import static akka.http.javadsl.server.Directives.headerValueByName;
 /**
  * Created by Chethan on Mar 22, 2022.
  */
@@ -174,12 +172,9 @@ public class HttpServerStudentTest extends JUnitRouteTest {
                 "    \"name\": \"me\"" +
                 "}";
 
-        appRoute.run(HttpRequest.POST("/student/addNewStudent").addCredentials(BasicHttpCredentials.createBasicHttpCredentials("swift","r008"))
+        appRoute.run(HttpRequest.POST("/student/addNewStudent").addCredentials(BasicHttpCredentials.createBasicHttpCredentials("swift", "r008"))
                                 .addHeader(RawHeader.create("apiKey", "student")).addHeader(RawHeader.create("secretKey", "null")).withEntity(HttpEntities.create(ContentTypes.APPLICATION_JSON, student))).assertStatusCode(StatusCodes.UNAUTHORIZED).assertEntity("Authentication is possible but has failed or not yet been provided.");
 
 
     }
-
-
-
 }
