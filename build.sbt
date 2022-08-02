@@ -23,6 +23,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
   "com.typesafe.akka" %% "akka-http" % AkkaHttpVersion
 )
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % "test"
+
 
 libraryDependencies += "com.typesafe.akka" %% "akka-http-jackson" % AkkaHttpVersion
 libraryDependencies ++= Seq("org.slf4j" % "slf4j-api" % "1.7.5",
