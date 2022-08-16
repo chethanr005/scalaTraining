@@ -8,6 +8,12 @@ import scala.util.{Failure, Success, Try}
 /**
   * Created by Chethan on Aug 01, 2022.
   */
+case class Student(id: String, name: String, gpa: Double, gender: String, gradeLevel: Int, activities: List[String]) extends BaseClass{
+
+def isMale = gender == "male"
+  def isFemale = !isMale
+
+}
 
 class StudentDatabase extends DataBase[Student] {
 
@@ -137,4 +143,3 @@ class StudentDatabase extends DataBase[Student] {
   }
 }
 
-case class Student(id: String, name: String, gpa: Double, gender: String, gradeLevel: Int, activities: List[String])

@@ -16,6 +16,16 @@ object StudentImplementation {
       studentsList <- studentsInFuture
       count = studentsList.groupBy(student => student.gender)
     } yield MaleAndFemaleContainer(count("male").size, count("female").size)
+    for {
+      studentsList <- studentsInFuture
+      maleList = studentsList.filter(_.isMale)
+      //      feMaleList = studentsList.filter(_.isFemale)
+    } yield MaleAndFemaleContainer(maleList.size, studentsList.size - maleList.size)
+
+    for {
+      studentsList <- studentsInFuture
+      (males, females) = studentsList.partition(_.isMale)
+    } yield MaleAndFemaleContainer(males.size, females.size)
   }
 
   def getPrefixNames: Future[List[String]] = {
@@ -26,6 +36,11 @@ object StudentImplementation {
         case "MALE"   => "Mr." + student.name
         case "FEMALE" => "Ms." + student.name
         case _        => student.name
+      }
+      if (student.isMale) {
+        "Mr." + student.name
+      } else {
+        "Ms." + student.name
       }
     }
   }

@@ -2,8 +2,10 @@ package com.chethan.assignment1
 
 import java.sql._
 import java.time.format.DateTimeFormatter
-import java.time.{LocalDate, Period}
+import java.time.temporal.ChronoUnit
+import java.time.{LocalDate, Period, Year}
 
+import scala.annotation.tailrec
 import scala.concurrent._
 import scala.util.{Failure, Success, Try}
 
@@ -11,6 +13,8 @@ import scala.util.{Failure, Success, Try}
 /**
   * Created by Chethan on Jun 13, 2022.
   */
+case class Employee(id: String, name: String, department: String, salary: Double, gender: String, joiningDate: LocalDate,
+                    dob: LocalDate, jobLevel: String) extends BaseClass
 
 class EmployeeDatabase extends DataBase[Employee] {
 
@@ -26,11 +30,12 @@ class EmployeeDatabase extends DataBase[Employee] {
     val format      = DateTimeFormatter ISO_LOCAL_DATE
 
     def getAllFromResultSet(resultSet: ResultSet): List[Employee] = {
+      @tailrec
       def resultSetLoop(resultSetData: ResultSet, listOfEmployees: List[Employee]): List[Employee] = {
         if (!resultSet.next())
           listOfEmployees
         else {
-          val id          = resultSet getInt "id"
+          val id          = resultSet getString "id"
           val name        = resultSet getString 2
           val department  = resultSet getString 3
           val salary      = resultSet getDouble 4
@@ -60,6 +65,8 @@ class EmployeeDatabase extends DataBase[Employee] {
       case Success(value)     => Future successful value
       case Failure(exception) => Future failed exception
     }
+
+    Future.fromTry(result)
   }
 
   override def getDataById(id: Any): Future[Employee] = {
@@ -71,7 +78,7 @@ class EmployeeDatabase extends DataBase[Employee] {
       val statement  = connection createStatement()
       val resultSet  = statement executeQuery getDataByIdQuery
       resultSet next()
-      val dataId      = resultSet getInt "id"
+      val dataId      = resultSet getString "id"
       val name        = resultSet getString 2
       val department  = resultSet getString 3
       val salary      = resultSet getDouble 4
@@ -97,6 +104,8 @@ class EmployeeDatabase extends DataBase[Employee] {
     val result = Try[Boolean]{
       val connection = new EmployeeDatabase() getConnection("127.0.0.1", "postgres", "admin")
       val statement  = connection createStatement()
+      val l          = ChronoUnit.YEARS.between(employee.dob, LocalDate.now)
+
       val isSuccess  = if (Period.between(employee.dob, LocalDate.now).getYears >= 21 && !Period.between(employee.joiningDate, LocalDate.now).isNegative && Period.between(employee.joiningDate, employee.dob).isNegative) {
         statement executeUpdate getInsertQuery
         true
@@ -149,7 +158,6 @@ class EmployeeDatabase extends DataBase[Employee] {
   }
 }
 
-case class Employee(id: Int, name: String, department: String, salary: Double, gender: String, joiningDate: LocalDate, dob: LocalDate, jobLevel: String)
 
 
 

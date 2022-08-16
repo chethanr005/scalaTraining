@@ -2,6 +2,8 @@ package com.chethan.assignment1
 
 import java.time.LocalDate
 
+import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 
@@ -9,7 +11,7 @@ import org.scalatest.wordspec.AnyWordSpec
   * Created by Chethan on Jul 25, 2022.
   */
 
-class EmployeeDatabaseTesting extends AnyWordSpec {
+class EmployeeDatabaseTesting extends AnyWordSpec with ScalaFutures with Matchers {
   "Employee database testing" must {
     "getAllData testing " in {
       val getAllData = new EmployeeDatabase().getAllData
@@ -25,6 +27,7 @@ class EmployeeDatabaseTesting extends AnyWordSpec {
   "addData testing" in {
     val tuple = new EmployeeDatabase().addData(Employee(15, "ino", "cs", 260000.0, "female", LocalDate.of(2020, 10, 15), LocalDate.of(2000, 4, 15), "junior"))
     Thread.sleep(1000)
+    tuple.futureValue shouldBe true
     assert(tuple.value.get.get == true)
   }
 
