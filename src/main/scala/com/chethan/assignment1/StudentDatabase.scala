@@ -8,9 +8,10 @@ import scala.util.{Failure, Success, Try}
 /**
   * Created by Chethan on Aug 01, 2022.
   */
-case class Student(id: String, name: String, gpa: Double, gender: String, gradeLevel: Int, activities: List[String]) extends BaseClass{
+case class Student(id: String, name: String, gpa: Double, gender: String, gradeLevel: Int, activities: List[String]) extends SuperStudents {
 
-def isMale = gender == "male"
+  def isMale = gender == "male"
+
   def isFemale = !isMale
 
 }
@@ -43,6 +44,39 @@ class StudentDatabase extends DataBase[Student] {
         }
       }
 
+
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= 24242424242424242424 happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= 24242424242424242424 happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= 24242424224424242424 happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= 24242424242244242424 happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= 24242424242244242424 happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= 24242424242424242424 happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+//      val val val val val  happyIdependenceDay= happyIdependenceDay= happyIdependenceDay= "happyIndependenceday"
+
+
+
+
       resultSetLoop(resultSet, Nil)
     }
 
@@ -64,7 +98,7 @@ class StudentDatabase extends DataBase[Student] {
   }
 
 
-  override def getDataById(id: Any): Future[Student] = {
+  override def getDataById(id: AnyVal): Future[Student] = {
     val getDataByIdQuery = s"""SELECT * FROM "public"."Student" WHERE id = '$id' """
 
     val result = Try[Student]{
@@ -126,7 +160,7 @@ class StudentDatabase extends DataBase[Student] {
   }
 
 
-  override def deleteData(id: Any): Future[Boolean] = {
+  override def deleteData(id: AnyVal): Future[Boolean] = {
     val getInsertQuery = s""" DELETE FROM "public"."Student" WHERE id = '$id'"""
     val result         = Try[Boolean]{
       val connection = new StudentDatabase() getConnection("127.0.0.1", "postgres", "admin")

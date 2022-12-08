@@ -13,8 +13,9 @@ import scala.util.{Failure, Success, Try}
 /**
   * Created by Chethan on Jun 13, 2022.
   */
-case class Employee(id: String, name: String, department: String, salary: Double, gender: String, joiningDate: LocalDate,
-                    dob: LocalDate, jobLevel: String) extends BaseClass
+case class Employee(id: Int, name: String, department: String, salary: Double, gender: String, joiningDate: LocalDate,
+                    dob: LocalDate, jobLevel: String) extends SuperEmployees
+
 
 class EmployeeDatabase extends DataBase[Employee] {
 
@@ -27,7 +28,7 @@ class EmployeeDatabase extends DataBase[Employee] {
 
   override def getAllData: Future[List[Employee]] = {
     val getAllQuery = s""" SELECT * FROM "public"."Employee" """
-    val format      = DateTimeFormatter ISO_LOCAL_DATE
+    val format      = DateTimeFormatter.ISO_LOCAL_DATE
 
     def getAllFromResultSet(resultSet: ResultSet): List[Employee] = {
       @tailrec
@@ -35,7 +36,7 @@ class EmployeeDatabase extends DataBase[Employee] {
         if (!resultSet.next())
           listOfEmployees
         else {
-          val id          = resultSet getString "id"
+          val id          = resultSet getInt "id"
           val name        = resultSet getString 2
           val department  = resultSet getString 3
           val salary      = resultSet getDouble 4
@@ -69,8 +70,8 @@ class EmployeeDatabase extends DataBase[Employee] {
     Future.fromTry(result)
   }
 
-  override def getDataById(id: Any): Future[Employee] = {
-    val format           = DateTimeFormatter ISO_LOCAL_DATE
+  override def getDataById(id: AnyVal): Future[Employee] = {
+    val format           = DateTimeFormatter.ISO_LOCAL_DATE
     val getDataByIdQuery = s"""SELECT * FROM "public"."Employee" WHERE id = $id """
 
     val result = Try[Employee]{
@@ -78,7 +79,7 @@ class EmployeeDatabase extends DataBase[Employee] {
       val statement  = connection createStatement()
       val resultSet  = statement executeQuery getDataByIdQuery
       resultSet next()
-      val dataId      = resultSet getString "id"
+      val dataId      = resultSet getInt "id"
       val name        = resultSet getString 2
       val department  = resultSet getString 3
       val salary      = resultSet getDouble 4
@@ -104,9 +105,9 @@ class EmployeeDatabase extends DataBase[Employee] {
     val result = Try[Boolean]{
       val connection = new EmployeeDatabase() getConnection("127.0.0.1", "postgres", "admin")
       val statement  = connection createStatement()
-      val l          = ChronoUnit.YEARS.between(employee.dob, LocalDate.now)
+      val l: Double  = ChronoUnit.YEARS.between(employee.dob, LocalDate.now)
 
-      val isSuccess  = if (Period.between(employee.dob, LocalDate.now).getYears >= 21 && !Period.between(employee.joiningDate, LocalDate.now).isNegative && Period.between(employee.joiningDate, employee.dob).isNegative) {
+      val isSuccess = if (Period.between(employee.dob, LocalDate.now).getYears >= 21 && !Period.between(employee.joiningDate, LocalDate.now).isNegative && Period.between(employee.joiningDate, employee.dob).isNegative) {
         statement executeUpdate getInsertQuery
         true
       } else throw new RuntimeException
@@ -141,7 +142,7 @@ class EmployeeDatabase extends DataBase[Employee] {
     }
   }
 
-  override def deleteData(id: Any): Future[Boolean] = {
+  override def deleteData(id: AnyVal): Future[Boolean] = {
     val getInsertQuery = s""" DELETE FROM "public"."Employee" WHERE id = '$id'"""
     val result         = Try[Boolean]{
       val connection = new EmployeeDatabase() getConnection("127.0.0.1", "postgres", "admin")

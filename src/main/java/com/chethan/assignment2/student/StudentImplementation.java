@@ -59,12 +59,12 @@ public class StudentImplementation {
 
         if (Subject.getSubjectList(getSubject()).contains(subjectName)) {
             int subjectID = getSubject().stream().filter(f -> f.getName() == subjectName).map(m -> m.getId()).findAny().get();
-
-            List<HighestScoreInSubjectContainer> highestScoringByStandard = Student.getDistinctStandard(getStudentList()).stream()
+            List<HighestScoreInSubjectContainer> highestScoringByStandard = Student.getDistinctStandard(getStudentList())
+                                                                                   .stream()
                                                                                    .map(m1 -> new HighestScoreInSubjectContainer(m1, studentList.stream()
                                                                                                                                                 .filter(f1 -> f1.getStandard() == m1)
                                                                                                                                                 .collect(Collectors.toList()).stream()
-                                                                                                                                                                                                                    .max(Comparator.comparing(s -> s.getSpecificSubjectMarks(s, subjectID)))
+                                                                                                                                                .max(Comparator.comparing(s -> s.getSpecificSubjectMarks(s, subjectID)))
                                                                                                                                                 .map(m2 -> m2.getName()).get())).collect(Collectors.toList());
             highestScoringStudentsList.addAll(highestScoringByStandard);
 
@@ -84,7 +84,7 @@ public class StudentImplementation {
      * 5. Highest marks in each subject with name of students
      */
     public static List<HighestMarksInEachSubject> getHighestMarksInEachSubject(List<Student> studentList) throws Exception {
-        return  Subject.getIdList(getSubject()).stream().map(m1 -> studentList.stream().max(Comparator.comparing(s -> s.getSpecificSubjectMarks(s, m1)))
+        return Subject.getIdList(getSubject()).stream().map(m1 -> studentList.stream().max(Comparator.comparing(s -> s.getSpecificSubjectMarks(s, m1)))
                                                                              .map(m2 -> new HighestMarksInEachSubject(m1, m2.getMarkDetails().stream().filter(f1 -> f1.getSubjectId() == m1)
                                                                                                                             .map(m3 -> m3.getMarks()).findAny().get(), m2.getName())).get()).collect(Collectors.toList());
     }
@@ -95,7 +95,7 @@ public class StudentImplementation {
 
     public static List<AwardWinningStudentsContainer> getAwardWinningStudents(List<Student> studentList) {
         return studentList.stream().map(m1 -> m1.getMarkDetails().stream().filter(f1 -> f1.getMarks() >= 90)
-                            .map(m2 -> new AwardWinningStudentsContainer(m1.getName(), m2.getSubjectId(), m2.getMarks())).collect(Collectors.toList()))
+                                                .map(m2 -> new AwardWinningStudentsContainer(m1.getName(), m2.getSubjectId(), m2.getMarks())).collect(Collectors.toList()))
                           .flatMap(f3 -> f3.stream())
                           .collect(Collectors.toList());
     }
