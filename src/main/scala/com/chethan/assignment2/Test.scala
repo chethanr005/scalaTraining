@@ -161,3 +161,30 @@ object Test {
 
 
 }
+
+
+object Dummy extends  App{
+  import scala.util.Random
+
+  object CustomerID {
+    def apply(name: String) = s"$name--${Random.nextLong()}"
+    def unapply(customerID: String): Option[String] = {
+      val stringArray: Array[String] = customerID.split("--")
+
+      if (stringArray.tail.nonEmpty) Some(stringArray.head) else None
+    }
+  }
+
+  val customer1ID = CustomerID("Sukyoung")
+  // Sukyoung--23098234908
+
+
+
+
+  customer1ID match {
+    case aa => println(aa)  // prints Sukyoung
+    case CustomerID(name) => println(name)  // prints Sukyoung
+    case _ => println("Could not extract a CustomerID")
+  }
+  println( CustomerID.unapply(customer1ID))
+}

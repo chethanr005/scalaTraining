@@ -42,6 +42,7 @@ public class HttpServer extends AllDirectives {
         HttpServer                           app     = new HttpServer(new StudentDatabase());
         final CompletionStage<ServerBinding> binding = http.newServerAt("localhost", 8888).bind(app.createRoute());
         System.out.println("Server online at http://localhost:8888/");
+
     }
 
     private Function<Optional<ProvidedCredentials>, Optional<Student>> basicAuthentication = providedCredentials -> {

@@ -14,7 +14,7 @@ libraryDependencies += "org.postgresql" % "postgresql" % "42.3.2"
 
 
 val AkkaHttpVersion = "10.2.9"
-val AkkaVersion     = "2.6.8"
+val AkkaVersion     = "2.8.3"
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor-typed" % AkkaVersion,
   "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
@@ -42,4 +42,8 @@ libraryDependencies ++= Seq(
 libraryDependencies += "com.github.tminglei" %% "slick-pg" % "0.21.1"
 libraryDependencies += "com.github.tminglei" %% "slick-pg_play-json" % "0.21.1"
 libraryDependencies += "com.typesafe.slick" %% "slick-codegen" % "3.4.1"
+libraryDependencies += "org.mongodb" % "mongodb-driver-sync" % "4.8.1"
 
+
+libraryDependencies +="com.typesafe.akka" %% "akka-actor" % AkkaVersion
+libraryDependencies += "com.typesafe.akka" %% "akka-testkit" % AkkaVersion

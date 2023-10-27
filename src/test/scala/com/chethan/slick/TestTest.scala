@@ -22,6 +22,8 @@ class TestTest extends AnyWordSpecLike with ScalaFutures with Matchers {
       val expectedData = Vector(Student(1, "aaaa", "male", Some("nothing")), Student(2, "bbbb", "female", None), Student(3, "cccc", "female", Some("athletic")))
       assert(test.size == expectedData.size)
       assert(test == expectedData)
+
+      expectedData shouldBe true
     }
 
 

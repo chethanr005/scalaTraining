@@ -94,4 +94,23 @@ object aa {
     val ddl     = List(student).map(_.schema).reduce(_ ++ _)
     println(student.schema.createIfNotExistsStatements.mkString(""))
   }
+
+  object aaa{
+    {
+      {
+        {
+          {
+            {
+              {
+                {
+
+                }
+              }
+            }
+          }
+
+        }
+      }
+    }
+  }
 }
