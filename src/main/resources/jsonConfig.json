@@ -1,0 +1,6 @@
+{
+  "customJsonProp": "unrock the jvm",
+  "akka": {
+    "loglevel": "DEBUG"
+  }
+}

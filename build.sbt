@@ -17,8 +17,10 @@ val AkkaHttpVersion = "10.2.9"
 val AkkaVersion     = "2.8.3"
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-actor-typed" % AkkaVersion,
+  "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion,
   "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
-  "com.typesafe.akka" %% "akka-http" % AkkaHttpVersion
+  "com.typesafe.akka" %% "akka-http" % AkkaHttpVersion,
+"com.typesafe.akka" %% "akka-stream-testkit" % AkkaVersion % Test
 )
 
 libraryDependencies += "com.typesafe.akka" %% "akka-http-jackson" % AkkaHttpVersion
@@ -30,7 +32,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http-testkit" % AkkaHttpVersion
 )
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % Test
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9"
 //libraryDependencies += "org.mockito" % "mockito-all" % "2.0.2-beta" % Test
 libraryDependencies += "org.specs2" %% "specs2-core" % "4.3.0" % Test
 libraryDependencies ++= Seq(
@@ -45,5 +47,5 @@ libraryDependencies += "com.typesafe.slick" %% "slick-codegen" % "3.4.1"
 libraryDependencies += "org.mongodb" % "mongodb-driver-sync" % "4.8.1"
 
 
-libraryDependencies +="com.typesafe.akka" %% "akka-actor" % AkkaVersion
+libraryDependencies += "com.typesafe.akka" %% "akka-actor" % AkkaVersion
 libraryDependencies += "com.typesafe.akka" %% "akka-testkit" % AkkaVersion

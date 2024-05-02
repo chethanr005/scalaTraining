@@ -33,6 +33,14 @@ class TestTest extends AnyWordSpecLike with ScalaFutures with Matchers {
       assert(test(0) == Student(3, "cccc", "female", Some("athletic")))
     }
 
+    "testing database" in {
+      val test = SlickDataBase.testing().futureValue(timeout)
+      println(test.size)
+      test.foreach(println)
+      //      assert(test.size == 1)
+      //      assert(test(0) == Student(3, "cccc", "female", Some("athletic")))
+    }
+
 
     "insert to database" in {
       val student1 = Student(4, "dddd", "male", Some("anything"))

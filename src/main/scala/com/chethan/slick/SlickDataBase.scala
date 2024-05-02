@@ -186,6 +186,19 @@ object SlickDataBase {
       result <- db.run(studentTable.result)
     } yield result
   }
+
+  def testing(): Future[Seq[Student1]] = {
+    for {
+      _ <- Future.unit
+      db = databaseConnectionFromUrl
+      studentTable: TableQuery[Student1Table] = TableQuery[Student1Table]
+//      query = studentTable.filter(_.gender === "female").filter(_.about === "athletic")
+      checkList = List(10)
+      query = studentTable.filter(_.gradeLevel.inSetBind(checkList)).filter(_.gender.like("%em%"))
+      result <- db.run[Seq[Student1]](query.result)
+    } yield result
+  }
+
 }
 
 
