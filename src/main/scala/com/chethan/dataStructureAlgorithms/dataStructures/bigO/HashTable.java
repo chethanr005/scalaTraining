@@ -106,7 +106,7 @@ public class HashTable {
         for (int i : array1) {
             map.put(i, map.getOrDefault(i, 0) + 1);
         }
-        List<Integer> list = map.entrySet().stream().filter(a -> a.getValue() > 1).map(a -> a.getKey()).toList();
+        List<Integer> list = map.entrySet().stream().filter(a -> a.getValue() > 1).map(a -> a.getKey()).collect(Collectors.toList());
         return list;
     }
 

@@ -16,6 +16,7 @@ libraryDependencies += "org.postgresql" % "postgresql" % "42.3.2"
 val AkkaHttpVersion = "10.2.9"
 val AkkaVersion     = "2.8.3"
 libraryDependencies ++= Seq(
+  "org.apache.spark" %% "spark-sql" % "3.1.3",
   "com.typesafe.akka" %% "akka-actor-typed" % AkkaVersion,
   "com.typesafe.akka" %% "akka-actor-testkit-typed" % AkkaVersion,
   "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
@@ -51,3 +52,5 @@ libraryDependencies += "org.mongodb" % "mongodb-driver-sync" % "4.8.1"
 
 libraryDependencies += "com.typesafe.akka" %% "akka-actor" % AkkaVersion
 libraryDependencies += "com.typesafe.akka" %% "akka-testkit" % AkkaVersion
+dependencyOverrides += "com.fasterxml.jackson.core" % "jackson-databind" % "2.10.0"
+dependencyOverrides += "com.fasterxml.jackson.core" % "jackson-core" % "2.10.0"
