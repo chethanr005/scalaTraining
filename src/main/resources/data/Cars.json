@@ -1,0 +1,5 @@
+{  "Model": "Octavia VRS",  "Power": 245, "color" :  "electricBlue", "RegistrationDate" :  "2025-01-01T12:00:00.000Z"}
+{  "Model": "Mustang","Power": 320, "color" :  "Black", "RegistrationDate" :  "2025-01-01T12:00:00.000Z"}
+{  "Model": "Corvette","Power": 420, "color" :  "Yellow", "RegistrationDate" :  "2025-01-01T12:00:00.000Z"}
+{  "Model": "Godzilla","Power": 625, "color" :  "CopperBronze", "RegistrationDate" :  "2025-01-01T12:00:00.000Z"}
+{  "Model": "Tarzon","Power": "Infinite", "color" :  "Blue", "RegistrationDate" :  "2025-01-01T12:00:00.000Z"}

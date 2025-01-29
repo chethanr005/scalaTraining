@@ -1,0 +1,65 @@
+
+
+What is spark?
+Spark is the unified computing engine and set of libraries for distributed data processing.
+
+
+spark supports a variety of data processing tasks.
+o. data loading
+o. SQL queries
+o. machine learning
+o. streaming
+
+spark is only a computing engine = detached from data storage and I/O
+
+
+Spark was developed by Matei Zaharia to UC Berkeley project in 2009. At this was MapReduce was widely used.
+
+Spark is not concerned with the data sources, it can read from anywhere
+o. files
+o. Azure
+o. A3
+o. Hadoop/HDFS
+o. Cassandra
+o. Postgres
+o. Kafka
+
+
+What is a Data frame?
+ Data frame is essentially a schema which is the description of attributes of the data and distributed collection of rows that
+ are conforming to that schema structure (In short Data frame is the combination of a schema structure and its records)
+
+ o. Data frame can be compared with rows and columns.
+
+ o. all rows have the same structure
+
+ o. Data needs to be distributed across the nodes since a single CPU takes too long to process the entire data.
+
+ o. Partitioning of data into files will be done between the nodes in the cluster.
+
+ o. Parallelism also affects the processing performance.
+
+ o. DF are immutable. New DF's must be created via transformations with modified data for modification.
+
+
+ Transformations
+ o. Narrow - One input partition contributes to at most one putput partition.
+ o. Wide - Input partitions(one or more) create many output partitions.
+
+ Shuffle = data xchange between cluster nodes
+ o. Occurs in wide transformation.
+ o. Massive performance topic.
+
+
+Computing DataFrames
+o. Spark uses lazy evaluation to execute the DF transformation.
+o. Planning - Spark compiles the DF transformations into a graph before running any code.
+            - logical plan - DF dependency graph + narrow/wide transformations sequence
+            - physical plan - optimized sequence of steps for nodes in the cluster
+            - optimizations
+
+
+
+Transformations vs Actions
+o. Transformations describe how new DF's are obtained.
+o. Actions actually start executing spark code.
