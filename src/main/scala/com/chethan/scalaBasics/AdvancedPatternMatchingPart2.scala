@@ -8,13 +8,13 @@ object AdvancedPatternMatchingPart2 {
 
   case class Or[A, B](a: A, b: B)
 
-  val either = Or(2, "Two")
-  either match {
-    //Infix pattern - Only works when we have 2 params
-    case n Or String =>
-  }
+//  val either = Or(2, "Two")
+//  either match {
+//    //Infix pattern - Only works when we have 2 params
+//    case Int Or String =>
+//  }
 
-  List(, 1, 2, 3, 4, 5) match {
+  List(1, 1, 2, 3, 4, 5) match {
     case List(1, _*) =>
   }
 

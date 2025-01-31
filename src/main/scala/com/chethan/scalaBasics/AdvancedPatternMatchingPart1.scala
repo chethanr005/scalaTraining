@@ -45,8 +45,8 @@ object AdvancedPatternMatchingPart1 extends App {
   val singleDigit = (x: Int) => x > -1 && x < 10
 
   n match {
-    case x if even        => println("It is even")
-    case x if singleDigit => println("It is odd")
+    case x if even(x)        => println("It is even")
+    case x if singleDigit(x) => println("It is odd")
   }
 
   object EvenObject {
